@@ -292,10 +292,10 @@ file_cycliste = open('cycliste.sql', 'w')
 file_participant = open('participant.sql', 'w')
 
 file_cycliste.write('INSERT INTO CYCLISTE(CYCLISTE_NUM, CYCLISTE_NOM, CYCLISTE_PRENOM, CYCLISTE_DATEN) VALUES \n')
-file_participant.write('INSERT INTO PARTICIPANT(TOUR_ANNEE, PART_NUM, CYCLISTE_NOM, CYCLISTE_PRENOM, CYCLISTE_DATEN, CYCLISTE_PAYS, PART_POIDS, PART_TAILLE, EQUIPE_NOM, EQUIPE_NUM, CYCLISTE_NUM) VALUES \n')
+file_participant.write('INSERT INTO PARTICIPANT(TOUR_ANNEE, PART_NUM, PART_POIDS, PART_TAILLE, EQUIPE_NUM, CYCLISTE_NUM) VALUES \n')
 iCycliste = 1
 for cycliste in riders:
-    file_cycliste.write(("(" + str(iCycliste) + "', '" + cycliste['nom'] + "', '" + cycliste['prenom'] +  "', '" + cycliste['daten'] +  "', %" + cycliste['pays'] + "%),\n").encode('utf-8'))
-    file_participant.write(("(2013, " + str(cycliste['num']) + ", '" + cycliste['nom'] + "', '" + cycliste['prenom'] +  "', '" + cycliste['daten'] +  "', '%" + cycliste['pays'] +  "%', '" + cycliste['poids'] +  "', '" + cycliste['taille'] + "', '" + cycliste['equipe']  + "', " + str(team_label[cycliste['equipe']]) + ", " + str(iCycliste) + "),\n").encode('utf-8'))
+    file_cycliste.write(("(" + str(iCycliste) + ", '" + cycliste['nom'] + "', '" + cycliste['prenom'] +  "', '" + cycliste['daten'] +  "', %" + cycliste['pays'] + "%),\n").encode('utf-8'))
+    file_participant.write(("(2013, " + cycliste['num'] + ", " + cycliste['poids'] +  ", " + cycliste['taille'] + ", " + str(team_label[cycliste['equipe']]) + ", " + str(iCycliste) + "),\n").encode('utf-8'))
     iCycliste = iCycliste + 1
 
