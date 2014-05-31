@@ -162,25 +162,6 @@ begin
 end;
 /
 
-create or replace trigger TI_PASSER
-before insert on EQUIPE
-for each row
-declare
-nequipe number(2);
-nbequipe number(2);
-begin
-	if inserting then
-		select count(equ.equipe_num) into nbequipe from equipe equ where equ.tour_annee = :new.tour_annee;
-			if(nbequipe=0) then
-				nequipe:=0;
-			else
-				select max(equ.equipe_num) into nequipe from equipe equ where equ.tour_annee = :new.tour_annee;
-			end if;
-		:new.equipe_num:=nequipe+1;
-	end if; 
-end;
-/
-
 
 
 
