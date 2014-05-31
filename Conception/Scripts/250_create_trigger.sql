@@ -113,8 +113,8 @@ begin
 				select max(pp.pt_pass_num) into npp from point_passage pp where pp.tour_annee = :new.tour_annee AND pp.etape_num = :new.etape_num;
 			end if;
 		:new.pt_pass_num:=npp+1;
-		select ville_nom into :new.pt_pass_ville_nom from ville where ville.ville_num = :new.ville_num;
-		select etape_distance into distance from etape where etape.etape_num = :new.etape_num;
+		:new.ville_nom_debuter := returnVille(:new.ville_num_debuter);
+		:new.ville_nom_finir := returnVille(:new.ville_num_finir);
 		:new.pt_pass_km_arr := distance-:new.pt_pass_km_dep;
 	end if; 
 end;
@@ -136,13 +136,33 @@ begin
 				select max(etape.etape_num) into netape from etape where etape.tour_annee = :new.tour_annee;
 			end if;
 		:new.etape_num:=netape+1;
-		select ville_nom into :new.ville_nom_debuter from ville where ville.ville_num = :new.ville_num_debuter;
-		select ville_nom into :new.ville_nom_finir from ville where ville.ville_num = :new.ville_num_finir;
+		:new.ville_nom_debuter := returnVille(:new.ville_num_debuter);
+		:new.ville_nom_finir := returnVille(:new.ville_num_finir);
 	end if; 
 end;
 /
 
 create or replace trigger TI_EQUIPE
+before insert on EQUIPE
+for each row
+declare
+nequipe number(2);
+nbequipe number(2);
+begin
+	if inserting then
+		select count(equ.equipe_num) into nbequipe from equipe equ where equ.tour_annee = :new.tour_annee;
+			if(nbequipe=0) then
+				nequipe:=0;
+			else
+				select max(equ.equipe_num) into nequipe from equipe equ where equ.tour_annee = :new.tour_annee;
+			end if;
+		:new.equipe_num:=nequipe+1;
+		:new.equipe_pays := returnPays(:new.pays_num);
+	end if; 
+end;
+/
+
+create or replace trigger TI_PASSER
 before insert on EQUIPE
 for each row
 declare
