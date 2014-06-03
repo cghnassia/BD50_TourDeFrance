@@ -1,0 +1,69 @@
+Optimisation
+
+1) Optimisation du modèle physique
+ - Gestion des données calculées
+ 	
+ 	Données calculées
+
+ 	 + Participant: Temps général
+ 	 + Participant: Point Montagnes
+ 	 + Participant: Points Sprint
+
+ 	 + Equipe: Temps équipe général
+
+ 	 + Etape: Km Arrivee
+
+ 	 + Terminer étape: temps etape
+ 	 + Terminer étape: classement étape
+ 	 + Terminer étape: points sprint
+ 	 + Terminer étape: points montagne
+ 	 
+ 	 + Cumuler: Temps général
+ 	 + Cumuler: Classement général
+ 	 + Cumuler: Points sprint
+ 	 + Cumuler: Points montagne
+
+ 	 + Terminer étape équipe: Temps étape équipe
+ 	 + Terminer étape équipe: Classement étape équipe
+
+ 	 + Cumuler équipe: Temps équipe général
+ 	 + Cumuler équipe: Classement équipe général
+
+ 	 + Passer: classement passage
+
+ 	 ATTENTION : RAJOUTER ATTRIBUT TEMPS PASSAGE DANS L'ASSOCIATION PASSER
+ 	 LES DONNEES SERONT CALCULEES A L'AIDE DE TRIGGERS
+ 	 			RAJOUTER LES DONNEES TERMINER ETAPE(POINTS SPRINTS et POINTS MONTAGNE) et CUMULER(POINTS SPRINT et POINTS ETAPES)
+
+ 2) Stratégie d'indexation
+ 	 + Indexation sur la plupart des clés étrangères pour accélerer la jointure 
+ 	 + Indexation sur le nom de coureur et le nom d'équipe, sur le nom de la ville
+ 	 + Indexation sur les classements généraux et points généraux (pas points de passage car trop souvent mis à jour).
+
+3) Optimisation du modèle logique
+	- Suppression des tables qui ne comportent qu'une clé
+	 + table Maillot
+
+	- Fusion des tables ayant une clé primaire identique
+	 + Terminer étape + cumuler
+	 + Termine étape équipe + cumuler équipe
+
+	- Fusion des tables de codification
+
+4) Dénormalisation
+	- Redondance sélective
+		+ Mettre Directeur sportif dans Equipe
+		+ Mettre Sponsor dans Equipe
+		+ Mettre Type étape dans étape
+		+ Mettre villes et pays dans Etape (et dans le reste) ???
+		+ Profil utilisateur dans utilisateur
+
+5) Partitionnement physique
+	- Tables:
+		+ Partionner participant par tour ?
+		+ Partitionner point de passage par tour (reference)
+		+ Partionner PASSER par étape
+		+ Terminer étape et cumuler par tourE
+
+
+
