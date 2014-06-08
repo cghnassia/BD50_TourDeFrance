@@ -68,9 +68,23 @@ END ajouter_etape;
 CREATE OR REPLACE TRIGGER ti_point_passage
 BEFORE INSERT ON point_passage
 FOR EACH ROW
+DECLARE
+	inconsistency_km EXCEPTION;
+	v_pt_pass_km_dep_previous point_passage.pt_pass_km_dep%TYPE;
 BEGIN
-	SELECT COUNT(*) INTO :new.pt_pass_num FROM point_passage WHERE tour_annee = tour_annee and etape_num = etape_num;
+	SELECT COUNT(*) INTO :new.pt_pass_num FROM point_passage WHERE tour_annee = :new.tour_annee and etape_num = :new.etape_num;
 	:new.pt_pass_num := :new.pt_pass_num + 1;
+	--Si ce n'est pas le premier point de passage, on vérifie que le kilométrage est cohérent
+	IF:new.pt_pass_num > 1 THEN
+		SELECT pt_pass_km_dep INTO v_pt_pass_km_dep_previous FROM point_passage 
+		WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND pt_pass_num = :new.pt_pass_num - 1;
+    
+		IF v_pt_pass_km_dep_previous > :new.pt_pass_km_dep THEN
+			RAISE inconsistency_km;
+		END IF;
+	ELSIF :new.pt_pass_km_dep > 0 THEN
+		RAISE inconsistency_km;
+	END IF;
 	
 	IF :new.ville_num is NOT NULL THEN
 		SELECT ville_nom INTO :new.pt_pass_ville_nom FROM ville WHERE ville_num = :new.ville_num;
@@ -107,7 +121,10 @@ BEGIN
 	:new.pt_pass_km_arr := 0;
 		
 EXCEPTION
-	WHEN no_data_found THEN dbms_output.put_line('Erreur');
+	WHEN no_data_found THEN dbms_output.put_line('Fatal erreur');
+	WHEN inconsistency_km THEN THEN 
+		dbms_output.put_line('Erreur de cohérence: Vérifier que le kilométrage est supérieur au point de passage précédent');
+		RAISE inconsistency_km;
 END ti_point_passage;
 
 
@@ -120,9 +137,28 @@ DECLARE
   v_maillot_couleur categorie.maillot_couleur%TYPE;
   v_bareme_pts bareme.bareme_pts%TYPE;
   v_part_tps_gene participant.part_tps_gene%TYPE;
+  v_part_num participant.part_num%TYPE;
+  inconstitency_passer EXCEPTION;
 BEGIN
 	SELECT COUNT(*) INTO :new.pass_class FROM passer WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND pt_pass_num = :new.pt_pass_num;
 	:new.pass_class := :new.pass_class + 1;
+	
+	--On doit vérifier deux cohérences:
+		-- Le participant est passé au point de passage précédent (ou à fini l'étape précédente si premier point de passage
+		-- Le temps est supérieur ou égal au temps du précédent point de passage
+	BEGIN
+		IF :new.pt_pass_num > 1 THEN
+				SELECT part_num INTO v_part_num FROM passer WHERE tour_annee =:new.tour_annee AND etape_num = :new.etape_num 
+				AND pt_pass_num = :new.pt_pass_num - 1 AND part_num = :new.part_num AND pass_tps <= :new.pass_tps;
+		ELSIF :new.etape_num  > 1 THEN
+				SELECT part_num INTO v_part_num FROM terminer_etape WHERE tour_annee =:new.tour_annee AND etape_num = :new.etape_num - 1 AND part_num = :new.part_num
+				AND pt_pass_num = (
+					SELECT MAX(pt_pass_num) FROM point_passage WHERE tour_annee = :new.tour_annee AND etape_num =:new.etape_num - 1
+        );
+		END IF;
+	EXCEPTION
+		WHEN no_data_found THEN raise inconstitency_passer;
+	END;
 	
 	SELECT part_tps_gene INTO v_part_tps_gene FROM participant WHERE tour_annee = :new.tour_annee AND part_num = :new.part_num;
   
@@ -133,8 +169,8 @@ BEGIN
     INSERT INTO terminer_etape (tour_annee, part_num, etape_num, etape_class, etape_tps, etape_pts_mont, etape_pts_sprint, pt_pass_num)
     VALUES (:new.tour_annee, :new.part_num, :new.etape_num, :new.pass_class, :new.pass_tps, 0, 0, :new.pt_pass_num);
   ELSE
-	UPDATE terminer_etape SET etape_class = :new.pass_class, etape_tps = :new.pass_tps, gene_tps = v_part_tps_gene + :new.pass_tps, pt_pass_num = :new.pt_pass_num
-	WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND part_num = :new.part_num;
+    UPDATE terminer_etape SET etape_class = :new.pass_class, etape_tps = :new.pass_tps, gene_tps = v_part_tps_gene + :new.pass_tps, pt_pass_num = :new.pt_pass_num
+    WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND part_num = :new.part_num;
   END IF;
 
   --On récupère les points et la couleur du maillot pour mettre à jour terminer etape
@@ -157,6 +193,11 @@ BEGIN
       WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND part_num = :new.part_num;
     END IF;
   END IF;
+EXCEPTION
+	WHEN no_data_found THEN dbms_output.put_line('Fatal error');
+	WHEN inconstitency_passer THEN 
+		dbms_output.put_line('Problème d''incohérence: vérifier que le coureur a passer les points de passage précédents et/ou que le temps est supérieur');
+		raise inconstitency_passer;
 END ti_passer_before;
 
 --
