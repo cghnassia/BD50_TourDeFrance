@@ -1,0 +1,20 @@
+/* Votre Style */
+
+#navigation {
+	background-color: #fcb825;
+	font-size: 1.4em;
+}
+#navigation a {
+	text-decoration: none;
+	color: black;
+}
+.separation1 {
+	background-color: black;
+	height: 0.2em;
+	margin-bottom: 1em;
+}
+.separation12{
+	background-color: #CCCCCC;
+	height: 0.1em;
+	margin-bottom: 1em;
+}

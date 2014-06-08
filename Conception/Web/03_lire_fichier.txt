@@ -1,0 +1,11 @@
+Une fois le DAD créé et les procédures/fonctions crééés :
+1.Copier répertoire "css" et "img" dans le repertoire "public" sur le serveur associé à XMLDB .
+(Voir pdf CONFIG_XMLDB_HTTP.pdf pour les explications.)
+
+2.Aller sur l'URL : http://xpsql:8080/g11_tour_epg_dad/ui_home
+
+3.Saisir mot de passe associé au schéma (G11_FLIGHT/G11_FLIGHT pour moi)
+
+4.Note : Le CSS n'est pas super sur IE7... donc à visualiser avec un navigateur 
+qui respecte les standards du web ^^.
+
