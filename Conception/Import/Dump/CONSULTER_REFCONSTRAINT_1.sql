@@ -1,9 +1,0 @@
---------------------------------------------------------
---  Ref Constraints for Table CONSULTER
---------------------------------------------------------
-
-  ALTER TABLE "G11_FLIGHT"."CONSULTER" ADD CONSTRAINT "FK_CONSULTER_TOUR" FOREIGN KEY ("TOUR_ANNEE")
-	  REFERENCES "G11_FLIGHT"."TOUR" ("TOUR_ANNEE") ENABLE;
- 
-  ALTER TABLE "G11_FLIGHT"."CONSULTER" ADD CONSTRAINT "FK_CONSULTER_UTILISATEUR" FOREIGN KEY ("UTIL_NUM")
-	  REFERENCES "G11_FLIGHT"."UTILISATEUR" ("UTIL_NUM") ENABLE;
