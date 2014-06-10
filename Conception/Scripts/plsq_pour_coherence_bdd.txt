@@ -165,3 +165,61 @@ AND tour_annee = 2013 AND etape_num = 4;
 SELECt * FROM TERMINER_ETAPE WHERE ETAPE_NUM = 5 AND TOUR_ANNEE = 2013 AND PART_NUM = 1;
 
 COMMIT;
+
+
+--Mettre à jour la table porter pour le tour 2013
+SET serveroutput ON
+DECLARE
+  CURSOR c_terminer_etape IS
+    select distinct etape_num from terminer_etape where tour_annee = 2013 order by etape_num  ASC;
+    v_etape_num etape.etape_num%TYPE;
+    v_part_jaune participant.part_num%TYPE;
+    v_part_pois participant.part_num%TYPE;
+    v_part_vert participant.part_num%TYPE;
+    v_part_blanc participant.part_num%TYPE;
+    
+BEGIN
+
+  DELETE FROM porter WHERE tour_annee = 2013;
+  OPEN c_terminer_etape;
+  LOOP
+    FETCH c_terminer_etape INTO v_etape_num;
+    EXIT WHEN c_terminer_etape%NOTFOUND;
+    
+    SELECT part_num INTO v_part_jaune FROM terminer_etape WHERE tour_annee = 2013 AND etape_num = v_etape_num AND gene_class = 1;
+    
+    SELECT part_num INTO v_part_vert FROM (
+      SELECT part_num FROM terminer_etape 
+      WHERE tour_annee = 2013 AND etape_num = v_etape_num 
+      AND part_num NOT IN (v_part_jaune)
+      ORDER BY gene_class_sprint ASC
+    )
+    WHERE rownum = 1;
+      
+    SELECT part_num INTO v_part_pois FROM (
+      SELECT part_num FROM terminer_etape 
+      WHERE tour_annee = 2013 AND etape_num = v_etape_num 
+      AND  part_num NOT IN (v_part_jaune, v_part_vert)
+      ORDER BY gene_class_mont ASC
+    )
+    WHERE rownum = 1;
+    
+    SELECT part_num INTO v_part_blanc FROM (
+      SELECT te.part_num FROM terminer_etape te 
+      INNER JOIN etape e ON te.tour_annee = e.tour_annee AND te.etape_num = e.etape_num 
+      INNER JOIN participant p ON te.tour_annee = p.tour_annee AND te.part_num = p.part_num
+      WHERE te.tour_annee = 2013 AND te.etape_num = v_etape_num
+      AND te.part_num NOT IN (v_part_jaune, v_part_vert, v_part_pois)
+      AND MONTHS_BETWEEN(p.cycliste_daten, e.etape_date) <= 300
+      ORDER BY te.gene_class_sprint ASC
+    ) 
+    WHERE rownum = 1;
+    
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (2013, v_etape_num, 'jaune', v_part_jaune);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (2013, v_etape_num, 'pois', v_part_pois);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (2013, v_etape_num, 'vert', v_part_vert);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (2013, v_etape_num, 'blanc', v_part_blanc);
+   END LOOP;
+   
+   CLOSE c_terminer_etape;
+END;
