@@ -1,0 +1,2 @@
+Changer labels des champs
+Ajout des LOV(List of values) dans certains formulaires
