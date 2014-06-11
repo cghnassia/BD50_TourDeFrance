@@ -260,10 +260,16 @@ BEGIN
     WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num;
     
     OPEN c_terminer_etape;
+	UPDATE participant SET
+		 part_class_gene = NULL
+		,part_class_mont = NULL
+		,part_class_sprint = NULL
+	WHERE tour_annee = :new.tour_annee;
+	
     LOOP
       FETCH c_terminer_etape INTO r_terminer_etape;
       EXIT WHEN c_terminer_etape%NOTFOUND;
-        
+	  
       UPDATE participant SET 
          part_tps_gene = r_terminer_etape.gene_tps
         ,part_class_gene = r_terminer_etape.gene_class
