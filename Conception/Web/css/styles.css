@@ -13,8 +13,48 @@
 	height: 0.2em;
 	margin-bottom: 1em;
 }
-.separation12{
+.separation2{
 	background-color: #CCCCCC;
 	height: 0.1em;
 	margin-bottom: 1em;
+}
+
+.greyFrame {
+background-color: #CCCCCC;
+}
+
+.normalTab,th,td {
+    border-collapse: collapse;
+    border-spacing: 0;
+	border:1px solid #ffffff;
+	width:80%;
+	height:100%;
+	margin:auto;
+	font-size : 1em;
+}
+
+.parcoursTab,th,td {
+	width:85%;
+}
+
+.normalTab th {
+	border-bottom:2px solid #fcb825;
+	}
+
+.col2 {
+	width:5em;
+}
+.col3 {
+	width:15em;
+}
+
+.col4 {
+	width:20em;
+}
+.col4 {
+	width:20em;
+}
+
+.rowP {
+	background-color: #EFF0F0;
 }
