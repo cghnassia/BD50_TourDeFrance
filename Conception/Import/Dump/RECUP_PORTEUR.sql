@@ -1,8 +1,8 @@
 --------------------------------------------------------
---  DDL for Function RECUP_LEADER
+--  DDL for Function RECUP_PORTEUR
 --------------------------------------------------------
 
-  CREATE OR REPLACE FUNCTION "G11_FLIGHT"."RECUP_LEADER" (
+  CREATE OR REPLACE FUNCTION "G11_FLIGHT"."RECUP_PORTEUR" (
       vmaillot porter.maillot_couleur%type,
       numetape porter.etape_num%type )
     RETURN participant%rowtype
@@ -27,6 +27,7 @@
       AND po.tour_annee      =getselectedtour
       AND po.maillot_couleur = vmaillot ;
     END IF;
+    
     SELECT *
     INTO vpart
     FROM participant pa
@@ -37,6 +38,7 @@
   WHEN OTHERS THEN
     --htp.print('Aucun porteur de maillot pour cette étape');
     RETURN NULL;
-  END recup_leader;
+  END recup_porteur;
+  
 
 /

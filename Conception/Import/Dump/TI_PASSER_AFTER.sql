@@ -17,6 +17,10 @@ DECLARE
   CURSOR c_terminer_etape_equipe IS
   SELECT * FROM terminer_etape_equipe WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num;
   r_terminer_etape_equipe c_terminer_etape_equipe%ROWTYPE;
+  v_part_jaune participant.part_num%TYPE;
+  v_part_vert participant.part_num%TYPE;
+  v_part_pois participant.part_num%TYPE;
+  v_part_blanc participant.part_num%TYPE;
 BEGIN
 	
 	--Si le participant est arrivé
@@ -60,10 +64,16 @@ BEGIN
     WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num;
     
     OPEN c_terminer_etape;
+	UPDATE participant SET
+		 part_class_gene = NULL
+		,part_class_mont = NULL
+		,part_class_sprint = NULL
+	WHERE tour_annee = :new.tour_annee;
+	
     LOOP
       FETCH c_terminer_etape INTO r_terminer_etape;
       EXIT WHEN c_terminer_etape%NOTFOUND;
-        
+	  
       UPDATE participant SET 
          part_tps_gene = r_terminer_etape.gene_tps
         ,part_class_gene = r_terminer_etape.gene_class
@@ -76,6 +86,41 @@ BEGIN
       AND part_num = r_terminer_etape.part_num;
     END LOOP;
     CLOSE c_terminer_etape;
+    
+	--Mis à jour de la table porter
+    SELECT part_num INTO v_part_jaune FROM terminer_etape WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num AND gene_class = 1;
+    
+    SELECT part_num INTO v_part_vert FROM (
+      SELECT part_num FROM terminer_etape 
+      WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num 
+      AND part_num NOT IN (v_part_jaune)
+      ORDER BY gene_class_sprint ASC
+    )
+    WHERE rownum = 1;
+      
+    SELECT part_num INTO v_part_pois FROM (
+      SELECT part_num FROM terminer_etape 
+      WHERE tour_annee = :new.tour_annee AND etape_num = :new.etape_num 
+      AND  part_num NOT IN (v_part_jaune, v_part_vert)
+      ORDER BY gene_class_mont ASC
+    )
+    WHERE rownum = 1;
+    
+    SELECT part_num INTO v_part_blanc FROM (
+      SELECT te.part_num FROM terminer_etape te 
+      INNER JOIN etape e ON te.tour_annee = e.tour_annee AND te.etape_num = e.etape_num 
+      INNER JOIN participant p ON te.tour_annee = p.tour_annee AND te.part_num = p.part_num
+      WHERE te.tour_annee = :new.tour_annee AND te.etape_num = :new.etape_num 
+      AND te.part_num NOT IN (v_part_jaune, v_part_vert, v_part_pois)
+      AND MONTHS_BETWEEN(p.cycliste_daten, e.etape_date) <= 300
+      ORDER BY te.gene_class_sprint ASC
+    ) 
+    WHERE rownum = 1;
+    
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (:new.tour_annee, :new.etape_num, 'jaune', v_part_jaune);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (:new.tour_annee, :new.etape_num, 'pois', v_part_pois);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (:new.tour_annee, :new.etape_num, 'vert', v_part_vert);
+    INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num) VALUES (:new.tour_annee, :new.etape_num, 'blanc', v_part_blanc);
     
     OPEN c_terminer_etape_equipe;
     UPDATE equipe SET equipe_class_gene = NULL WHERE tour_annee = :new.tour_annee;
@@ -91,6 +136,7 @@ BEGIN
         AND equipe_num = r_terminer_etape_equipe.equipe_num;
     END LOOP;
   END IF;
+  
 END ti_passer_after;
 /
 ALTER TRIGGER "G11_FLIGHT"."TI_PASSER_AFTER" ENABLE;

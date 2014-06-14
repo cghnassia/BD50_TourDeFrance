@@ -3,23 +3,28 @@
 --------------------------------------------------------
 set define off;
 
-  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_HEADER" is
-path_css varchar2(255) := '/public/css/';
-ftour tour%ROWTYPE;
-begin
-select * into ftour from tour where tour_annee=getselectedtour;
-htp.print('
-<header id="header" role="banner" class="line pam">
+  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_HEADER" IS
+	path_css varchar2(255) := '/public/css/';
+	v_tour tour%ROWTYPE;
+BEGIN
+	SELECT 
+		* INTO v_tour 
+	FROM 
+		tour 
+	WHERE tour_annee=GETSELECTEDTOUR;
+	
+	UI_MAIN_OPEN;
+	htp.print('
 		<div class="autogrid3">
-			<div><h1>Tour de France ' || getselectedtour || '</h1></div>
-      <div>' || ftour.tour_edition || 'e édition </br> ' || ftour.tour_dated || ' - ' || ftour.tour_datef ||' </div>
-      <div>');
-      ui_select_tour(getselectedtour);
-htp.print('</div>
+			<div><h1>Tour de France ' || GETSELECTEDTOUR || '</h1></div>
+			<div>' || v_tour.tour_edition || 'e édition </br> ' || v_tour.tour_dated || ' - ' || v_tour.tour_datef ||' </div>
+			<div>');
+      UI_SELECT_TOUR(GETSELECTEDTOUR);
+	htp.print('</div>
 		</div>
 		<div id="navigation">
 			<ul>
-        <li class="pas inbl"><a href="ui_home">Accueil</a></li>
+				<li class="pas inbl"><a href="ui_home">Accueil</a></li>
 				<li class="pas inbl"><a href="ui_letape">Parcours</a></li>
 				<li class="pas inbl"><a href="ui_lequipe">Equipes</a></li>
 				<li class="pas inbl"><a href="ui_lparticipant">Coureurs</a></li>
@@ -27,6 +32,6 @@ htp.print('</div>
 			</ul>
 		</div>
 	</header>');
-end;
+END UI_HEADER;
 
 /

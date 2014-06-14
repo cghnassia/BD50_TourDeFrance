@@ -3,26 +3,30 @@
 --------------------------------------------------------
 set define off;
 
-  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_SELECT_TOUR" (vtour varchar2 default 2013) is
-cursor ltour is select tour_annee from tour order by 1;
-ftour tour%ROWTYPE;
-begin
-  /*Formulaire de sélection du Tour*/
-  htp.formopen(curl=>'maj_selected_tour', cmethod=>'POST');
+  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_SELECT_TOUR" 
+(v_tour varchar2 default 2013) IS
+CURSOR l_tour IS 
+	SELECT 
+		tour_annee 
+	FROM 
+		tour 
+	ORDER BY 1;
+BEGIN
+	htp.FORmopen(curl=>'maj_selected_tour', cmethod=>'POST');
 	htp.print('Tour:');
-  htp.formselectopen('vtour');
-	for crec in ltour loop
-    if (crec.tour_annee=vtour) then
-      htp.formselectoption(crec.tour_annee,crec.tour_annee);
-    else
-      htp.formselectoption(crec.tour_annee);
-    end if;
-	end loop ;
-  htp.formSelectClose;
-  htp.formhidden('prev_url',owa_util.get_procedure);
-	htp.formsubmit(cvalue=>'OK');
-	htp.formclose;
-  /*********************************/
-end;
+	htp.FORmSELECTopen('v_tour');
+	FOR crec in l_tour LOOP
+    IF (crec.tour_annee=v_tour) THEN
+      htp.FORmSELECToption(crec.tour_annee,crec.tour_annee);
+    ELSE
+      htp.FORmSELECToption(crec.tour_annee);
+    END IF;
+	END LOOP ;
+	htp.FORmSELECTClose;
+	htp.FORmhidden('prev_url',owa_util.get_procedure);
+	htp.FORmsubmit(cvalue=>'OK');
+	htp.FORmclose;
+
+END UI_SELECT_TOUR;
 
 /

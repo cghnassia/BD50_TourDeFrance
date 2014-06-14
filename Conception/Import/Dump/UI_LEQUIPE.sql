@@ -3,47 +3,65 @@
 --------------------------------------------------------
 set define off;
 
-  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_LEQUIPE" (crit_nom varchar2 default '%') is
-cursor cur_equi is 
-select * 
-from equipe 
-where tour_annee=getselectedtour 
-and equipe_nom like UPPER('%'||crit_nom||'%')
-order by equipe_num;
+  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_LEQUIPE" 
+  (crit_nom varchar2 default '%') IS
+	CURSOR cur_equi IS 
+		SELECT 
+			* 
+		FROM 
+			equipe 
+		WHERE 
+			tour_annee=GETSELECTEDTOUR 
+		AND equipe_nom like UPPER('%'||crit_nom||'%')
+		ORDER BY equipe_num;
 
-begin
-  ui_head;
-  ui_header;
-  
-  
-  /*Formulaire*/
-  htp.print('<div class="w80 txtleft">');
-  htp.formopen(curl=>'ui_lequipe', cmethod=>'POST');
-	htp.print('Nom:');
-  htp.formtext('crit_nom');
-	htp.formsubmit(cvalue=>'OK');
-	htp.formclose;
-  htp.print('</br></div>');
-  /*********************************/
-  
-htp.tableOpen();
-	htp.tableheader('Numéro');
-	htp.tableheader('Nom');
-	htp.tableheader('Web');
-	htp.tableheader('Desc');
-	htp.tableheader('Pays');
-	for recequi in cur_equi loop
-		htp.tableRowOpen;
-		htp.tableData(recequi.equipe_num);
-		htp.tableData(htf.anchor ('ui_detail_equipe?nequi=' || recequi.equipe_num,recequi.equipe_nom));
-		htp.tableData(recequi.equipe_web);
-		htp.tableData(recequi.equipe_desc);
-    htp.tableData(recequi.equipe_pays);
+	cpt number(3) :=0;
+BEGIN
+  UI_HEAD;
+	UI_HEADER;
+	UI_MAIN_OPEN;
+		htp.print('
+		<div class="row">
+			<div class="col">
+				<h2>Equipes</h2>
+			</div>
+			<div class="col">');
+			htp.print('<div class="w80 txtleft">');
+				htp.FORmopen(curl=>'ui_lequipe', cmethod=>'POST');
+				htp.print('Nom:');
+				htp.FORmtext('crit_nom');
+				htp.FORmsubmit(cvalue=>'OK');
+				htp.FORmclose;
+			htp.print('</div>');
+		htp.print('</div>
+		</div>
+		<div class="row separation2"></div></br>');
+
+	htp.tableOpen(cattributes => 'class="normalTab"');
+		htp.tableheader('Numéro',cattributes => 'class="col2"');
+		htp.tableheader('Nom');
+		htp.tableheader('Web');
+		htp.tableheader('Pays');
+		
+		FOR recequi in cur_equi LOOP
+			cpt:=cpt+1;
+			IF(mod(cpt,2)=0) THEN
+				htp.tableRowOpen(cattributes => 'class="rowP"');
+			ELSE
+			htp.tableRowOpen;
+			END IF;
+			
+			htp.tableData(recequi.equipe_num);
+			htp.tableData(htf.anchor ('ui_detail_equipe?n_equipe=' || recequi.equipe_num,recequi.equipe_nom));
+			htp.tableData(recequi.equipe_web);
+			htp.tableData(recequi.equipe_pays);
 		htp.tableRowClose;
 		htp.tableRowOpen;
 		htp.tableRowClose;
-	end loop;
+	END LOOP;
   htp.tableClose;
-end;
+  UI_MAIN_CLOSE;
+  UI_FOOTER;
+END;
 
 /

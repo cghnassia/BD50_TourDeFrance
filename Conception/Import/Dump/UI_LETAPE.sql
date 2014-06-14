@@ -3,36 +3,41 @@
 --------------------------------------------------------
 set define off;
 
-  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_LETAPE" is
-cursor cur_etape is select * from etape where tour_annee=getselectedtour order by etape_num;
-begin
+  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_LETAPE" IS
+CURSOR cur_etape IS SELECT * FROM etape WHERE tour_annee=GETSELECTEDTOUR ORDER BY etape_num;
+BEGIN
 
-  ui_head;
-  ui_header;
-
-  htp.tableOpen();
-	htp.tableheader('Numéro');
-	htp.tableheader('Nom');
-	htp.tableheader('Date');
-	htp.tableheader('Distance');
-	htp.tableheader('Type');
-  htp.tableheader('Départ');
-  htp.tableheader('Arrivée');
-	for recetape in cur_etape loop
-		htp.tableRowOpen;
+  UI_HEAD;
+  UI_HEADER;
+  htp.print('<div id="main" role="main" class="line pam">
+  <h2>Parcours</h2>
+  <div class="row separation2"></div></br>');
+  htp.tableOpen(cattributes => 'class="normalTab"');
+	htp.tableheader('Etape',cattributes => 'class="col2"');
+  htp.tableheader('Type');
+  htp.tableheader('Date');
+  htp.tableheader('Départ > Arrivée',cattributes => 'class="col4"');
+  htp.tableheader('Distance');
+  htp.tableheader('Détail');
+	FOR recetape in cur_etape LOOP
+		IF(mod(recetape.etape_num,2)=0) THEN
+      htp.tableRowOpen(cattributes => 'class="rowP"');
+    ELSE
+       htp.tableRowOpen;
+    END IF;
 		htp.tableData(recetape.etape_num);
-    htp.tableData(htf.anchor ('ui_lpoint?numetape=' || recetape.etape_num,recetape.etape_nom));
     htp.tableData(recetape.etape_date);
-    htp.tableData(recetape.etape_distance || ' km');
     htp.tableData(recetape.tetape_lib);
-    htp.tableData(recetape.ville_nom_debuter);
-    htp.tableData(recetape.ville_nom_finir);
+    htp.tableData(recetape.ville_nom_debuter||' > '||recetape.ville_nom_finir);
+     htp.tableData(recetape.etape_dIStance || ' km');
+    htp.tableData(htf.anchor ('ui_detail_etape?n_etape=' || recetape.etape_num,'Détails'));
 		htp.tableRowClose;
 		htp.tableRowOpen;
 		htp.tableRowClose;
-	end loop;
+	END LOOP;
   htp.tableClose;
-
-end;
+  htp.print('</div>');
+  UI_FOOTER;
+END UI_LETAPE;
 
 /
