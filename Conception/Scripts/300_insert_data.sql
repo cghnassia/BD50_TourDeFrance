@@ -751,7 +751,7 @@ Insert into G11_FLIGHT.BAREME (CAT_NUM,BAREME_PLACE,BAREME_PTS) values ('7','9',
 Insert into G11_FLIGHT.BAREME (CAT_NUM,BAREME_PLACE,BAREME_PTS) values ('7','10','23');
 
 /* TABLE TOUR */
-Insert into G11_FLIGHT.TOUR (TOUR_ANNEE,TOUR_EDITION,TOUR_DATED,TOUR_DATEF,TOUR_NOM,SUPER_COMBATIF_NUM,UTIL_NUM_MANAGER,UTIL_NUM_ADMINISTRER) values ('2013','100',to_date('29/06/13','DD/MM/RR'),to_date('21/07/13','DD/MM/RR'),'Tour de France 2013',null,null,null);
+Insert into G11_FLIGHT.TOUR (TOUR_ANNEE,TOUR_EDITION,TOUR_DATED,TOUR_DATEF,TOUR_NOM,SUPER_COMBATIF_NUM,UTIL_NUM_MANAGER,UTIL_NUM_ADMINISTRER) values ('2013','100',to_date('29/06/13','DD/MM/RR'),to_date('21/07/13','DD/MM/RR'),'Tour de France 2013',89,null,null);
 Insert into G11_FLIGHT.TOUR (TOUR_ANNEE,TOUR_EDITION,TOUR_DATED,TOUR_DATEF,TOUR_NOM,SUPER_COMBATIF_NUM,UTIL_NUM_MANAGER,UTIL_NUM_ADMINISTRER) values ('2014','101',to_date('27/06/14','DD/MM/RR'),to_date('29/06/14','DD/MM/RR'),'Tour de France 2014',null,null,null);
 
 /* TABLE ETAPE */
@@ -7585,6 +7585,41 @@ Insert into G11_FLIGHT.PORTER (TOUR_ANNEE,ETAPE_NUM,MAILLOT_COULEUR,PART_NUM) va
 Insert into G11_FLIGHT.PORTER (TOUR_ANNEE,ETAPE_NUM,MAILLOT_COULEUR,PART_NUM) values ('2013','3','blanc','197');
 Insert into G11_FLIGHT.PORTER (TOUR_ANNEE,ETAPE_NUM,MAILLOT_COULEUR,PART_NUM) values ('2013','4','blanc','197');
 Insert into G11_FLIGHT.PORTER (TOUR_ANNEE,ETAPE_NUM,MAILLOT_COULEUR,PART_NUM) values ('2013','1','blanc','208');
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 1, 'rouge', 53);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 2, 'rouge', 87);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 3, 'rouge', 183);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 5, 'rouge', 203);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 6, 'rouge', 24);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 7, 'rouge', 42);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 8, 'rouge', 128);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 9, 'rouge', 82);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 10, 'rouge', 53);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 12, 'rouge', 204);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 13, 'rouge', 151);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 14, 'rouge', 218);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 15, 'rouge', 152);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 16, 'rouge', 124);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 18, 'rouge', 89);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 19, 'rouge', 51);
+INSERT INTO porter (tour_annee, etape_num, maillot_couleur, part_num)
+VALUES(2013, 20, 'rouge', 48);
+
 
 /* TABLE DIRIGER */
 Insert into G11_FLIGHT.DIRIGER (TOUR_ANNEE,EQUIPE_NUM,DIRS_NUM) values ('2013','1','1');
