@@ -1,6 +1,21 @@
 --------------------------------------------------------
---  Fichier créé - samedi-juin-14-2014   
+--  Fichier créé - dimanche-juin-15-2014   
 --------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Procedure COLOR_ROW_P
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."COLOR_ROW_P" (cpt number default 0) IS
+BEGIN
+	IF(mod(cpt,2)=0) THEN
+				  htp.tableRowOpen(cattributes => 'class="rowP"');
+			  ELSE
+			   htp.tableRowOpen;
+			  END IF;
+END COLOR_ROW_P;
+
+/
 --------------------------------------------------------
 --  DDL for Procedure MAJ_SELECTED_ETAPE
 --------------------------------------------------------
@@ -39,58 +54,6 @@ BEGIN
 END MAJ_SELECTED_TOUR;
 
 /
-
---------------------------------------------------------
---  DDL for Function FORMATED_TIME
---------------------------------------------------------
-CREATE OR REPLACE FUNCTION "G11_FLIGHT"."FORMATED_TIME" (
-      time_number NUMBER)
-RETURN VARCHAR2 IS
-v_formated_time VARCHAR2(20);
-v_time  NUMBER(10, 0);
-v_tenths NUMBER(2, 0);
-v_seconds NUMBER(2, 0);
-v_minuts NUMBER(2, 0);
-v_hours NUMBER(3, 0);
-BEGIN
-  v_time := time_number;
-  
-	v_tenths := MOD(v_time, 10);
-  
-  v_time := FLOOR(v_time / 10);
-  v_seconds := MOD(v_time, 60);
-    
-  v_time := FLOOR(v_time / 60);
-  v_minuts := MOD(v_time, 60);
-
-  v_hours := FLOOR(v_time / 60);
-  
-  IF v_hours != 0 THEN
-    v_formated_time := v_hours || 'h ';
-  END IF;
-  
-  IF v_hours != 0 AND v_minuts < 10 THEN
-    v_formated_time := v_formated_time || '0';
-  END IF;
-  
-  IF v_hours != 0 OR v_minuts != 0 THEN
-    v_formated_time := v_formated_time || v_minuts || ''' ';
-  END IF;
-  
-  IF (v_hours != 0 OR v_minuts != 0) AND v_seconds < 10 THEN
-    v_formated_time := v_formated_time || '0';
-  END IF;
-  
-  IF v_hours != 0 OR v_minuts != 0 OR v_seconds != 0 THEN
-    v_formated_time := v_formated_time || v_seconds || ''''' ';
-  END IF;
-  
-  RETURN v_formated_time;
---EXCEPTION
---  WHEN OTHERS THEN dbms_output.put_line('Erreur');
-END FORMATED_TIME;
-
-/
 --------------------------------------------------------
 --  DDL for Procedure UI_AFF_CLASS_EQUI
 --------------------------------------------------------
@@ -111,6 +74,7 @@ set define off;
 		ORDER BY gene_equi_class;
 	
 	first_tps equipe.equipe_tps_gene%TYPE;
+  cpt number(3) := 0;
 BEGIN
 	SELECT 
 		gene_equi_tps INTO first_tps 
@@ -126,9 +90,10 @@ BEGIN
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
 			FOR recequi in cur_equi LOOP
-				htp.tableRowOpen;
+          cpt:=cpt+1;
+          COLOR_ROW_P(cpt);
 					htp.tableData(recequi.gene_equi_class);
-					htp.tableData(htf.anchor ('ui_detail_equipe?nequi=' || recequi.equipe_num,recequi.equipe_nom));
+					htp.tableData(htf.anchor ('ui_detail_equipe?n_equipe=' || recequi.equipe_num,recequi.equipe_nom));
 					htp.tableData(formated_time(recequi.gene_equi_tps));
           
 					IF recequi.gene_equi_tps-first_tps != 0 THEN
@@ -147,8 +112,8 @@ BEGIN
 		when others THEN
 			null;
 END UI_AFF_CLASS_EQUI;
-/
 
+/
 --------------------------------------------------------
 --  DDL for Procedure UI_AFF_CLASS_ETAPE
 --------------------------------------------------------
@@ -178,12 +143,8 @@ BEGIN
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
 			FOR recpart in cur_part LOOP
-				cpt:=cpt+1;
-        IF(mod(cpt,2)=0) THEN
-				  htp.tableRowOpen(cattributes => 'class="rowP"');
-			  ELSE
-			   htp.tableRowOpen;
-			  END IF;
+        cpt:=cpt+1;
+        COLOR_ROW_P(cpt);
 				htp.tableData(recpart.etape_class);
 				htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 				htp.tableData(recpart.part_num);
@@ -236,15 +197,9 @@ BEGIN
 		
 		FOR recpart in cur_part LOOP
 			cpt:=cpt+1;
-			
-			IF(MOD(cpt,2)=0) THEN
-				htp.tableRowOpen(cattributes => 'class="rowP"');
-			ELSE
-				htp.tableRowOpen;
-			END IF;
-		
+      COLOR_ROW_P(cpt);
 			htp.tableData(recpart.gene_class);
-			htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+			htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 			htp.tableData(recpart.part_num);
 			htp.tableData(recpart.equipe_nom);
 			htp.tableData(formated_time(recpart.gene_tps));
@@ -286,14 +241,14 @@ set define off;
 	
 	rang number(3) := 1;
 	tps_first participant.part_tps_gene%TYPE := 0;
-	
+	cpt number(3) := 0;
 BEGIN
 
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
 		htp.tableheader('N°',cattributes => 'class="col2"');
-		htp.tableheader('Equipe',cattributes => 'class="col4"');
+		htp.tableheader('Equipe',cattributes => 'class="col3"');
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
 		
@@ -301,9 +256,10 @@ BEGIN
 			if (rang=1) then
       tps_first:=recpart.gene_tps;
     end if;
-      htp.tableRowOpen;
+        cpt:=cpt+1;
+        COLOR_ROW_P(cpt);
 				htp.tableData(rang);
-				htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+				htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 				htp.tableData(recpart.part_num);
 				htp.tableData(recpart.equipe_nom);
 				htp.tableData(formated_time(recpart.gene_tps));
@@ -346,7 +302,7 @@ set define off;
 		AND gene_class_mont!=0 
 		ORDER BY gene_class_mont;
 	
-	
+	cpt number(3) := 0;
 BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
@@ -356,9 +312,10 @@ BEGIN
 		htp.tableheader('Points');
 		
 	FOR recpart in cur_part LOOP
-		htp.tableRowOpen;
+      cpt:=cpt+1;
+      COLOR_ROW_P(cpt);
 			htp.tableData(recpart.gene_class_mont);
-			htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+			htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 			htp.tableData(recpart.part_num);
 			htp.tableData(recpart.equipe_nom);
 			htp.tableData(recpart.gene_pts_mont);
@@ -391,7 +348,8 @@ set define off;
 		AND gene_class_sprint!=0 
 		AND etape_num=n_etape 
 		ORDER BY gene_class_sprint;
-		
+    
+	cpt number(3) := 0;	
 	
 BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
@@ -402,9 +360,10 @@ BEGIN
 		htp.tableheader('Points');
 		
 		FOR recpart in cur_part LOOP
-			htp.tableRowOpen;
+        cpt:=cpt+1;
+        COLOR_ROW_P(cpt);
 				htp.tableData(recpart.gene_class_sprint);
-				htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+				htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 				htp.tableData(recpart.part_num);
 				htp.tableData(recpart.equipe_nom);
 				htp.tableData(recpart.gene_pts_sprint);
@@ -654,9 +613,9 @@ BEGIN
   
 			htp.print('
 			<div class="row h2-like greyFrame">  '||v_etape.ville_nom_debuter|| ' / '||v_etape.ville_nom_finir|| '</div>
-				<div class="row h3-like greyFrame">'||v_etape.etape_dIStance||' km - TYPE :  '||v_etape.tetape_lib||'</div>
+				<div class="row h3-like greyFrame">'||v_etape.etape_distance||' km - TYPE :  '||v_etape.tetape_lib||'</div>
 				</br>
-			<div class="row h4-like">Porteurs de maillot à l''ISsue de l''étape '||n_etape||'</div>
+			<div class="row h4-like">Porteurs de maillot à l''issue de l''étape '||n_etape||'</div>
 			<div class="row separation1"></div>
 			<div class="row">
 				<div class="grid">
@@ -669,7 +628,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('jaune',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_gene_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_gene_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -679,7 +638,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('vert',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_sprint_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_sprint_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -689,7 +648,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('pois',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_mont_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_mont_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -699,7 +658,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('blanc',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_jeune_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_jeune_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -709,7 +668,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('etape',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_etape_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_etape_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -719,7 +678,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_leader_equipe(n_etape).equipe_nom||'</div>
 							</div>
-							<div><a href="ui_class_equipe_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_equipe_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 					</div>
 				</div>
@@ -748,7 +707,11 @@ BEGIN
 					
 					htp.tableData(recpp.pt_pass_num);
 					htp.tableData(recpp.pt_pass_nom);
-					htp.tableData(recpp.pt_pass_ville_nom);
+					IF (recpp.pt_pass_ville_nom = 'NULL') THEN
+            htp.tableData('&nbsp;');
+          ELSE
+            htp.tableData(recpp.pt_pass_ville_nom);
+          END IF;
 					htp.tableData(recpp.pt_pass_km_dep);
 					htp.tableData(recpp.pt_pass_km_arr);
 					htp.tableData(recpp.pt_pass_alt);
@@ -1266,11 +1229,64 @@ BEGIN
 	htp.FORmclose;
 
 END UI_SELECT_TOUR;
+
 /
 
 --------------------------------------------------------
---  Fichier créé - samedi-juin-14-2014   
+--  Fichier créé - dimanche-juin-15-2014   
 --------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Function FORMATED_TIME
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "G11_FLIGHT"."FORMATED_TIME" (
+      time_number NUMBER)
+RETURN VARCHAR2 IS
+v_formated_time VARCHAR2(20);
+v_time  NUMBER(10, 0);
+v_tenths NUMBER(2, 0);
+v_seconds NUMBER(2, 0);
+v_minuts NUMBER(2, 0);
+v_hours NUMBER(3, 0);
+BEGIN
+  v_time := time_number;
+  
+	v_tenths := MOD(v_time, 10);
+  
+  v_time := FLOOR(v_time / 10);
+  v_seconds := MOD(v_time, 60);
+    
+  v_time := FLOOR(v_time / 60);
+  v_minuts := MOD(v_time, 60);
+
+  v_hours := FLOOR(v_time / 60);
+  
+  IF v_hours != 0 THEN
+    v_formated_time := v_hours || 'h ';
+  END IF;
+  
+  IF v_hours != 0 AND v_minuts < 10 THEN
+    v_formated_time := v_formated_time || '0';
+  END IF;
+  
+  IF v_hours != 0 OR v_minuts != 0 THEN
+    v_formated_time := v_formated_time || v_minuts || ''' ';
+  END IF;
+  
+  IF (v_hours != 0 OR v_minuts != 0) AND v_seconds < 10 THEN
+    v_formated_time := v_formated_time || '0';
+  END IF;
+  
+  IF v_hours != 0 OR v_minuts != 0 OR v_seconds != 0 THEN
+    v_formated_time := v_formated_time || v_seconds || ''''' ';
+  END IF;
+  
+  RETURN v_formated_time;
+--EXCEPTION
+--  WHEN OTHERS THEN dbms_output.put_line('Erreur');
+END FORMATED_TIME;
+
+/
 --------------------------------------------------------
 --  DDL for Function GETSELECTEDETAPE
 --------------------------------------------------------
@@ -1457,8 +1473,5 @@ END RECUP_MAX_ETAPE;
     RETURN NULL;
   END recup_porteur;
   
+
 /
-
-
-
-
