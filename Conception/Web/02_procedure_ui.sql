@@ -226,18 +226,19 @@ end UI_AFF_CLASS_GENE;
 --------------------------------------------------------
 set define off;
 
-  CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_AFF_CLASS_JEUNE" 
+CREATE OR REPLACE PROCEDURE "G11_FLIGHT"."UI_AFF_CLASS_JEUNE" 
 (nb_ligne number default 999,n_etape etape.etape_num%TYPE) IS
 	CURSOR cur_part IS 
 		SELECT 
 			*
-		FROM 
-			(SELECT * FROM terminer_etape ORDER BY gene_class asc)
-		WHERE 
-			tour_annee=GETSELECTEDTOUR
-		AND (GETSELECTEDTOUR-TO_CHAR(cycliste_daten,'YYYY'))<26
-		AND etape_num=n_etape
-		AND rownum <= nb_ligne;
+		FROM (
+			SELECT * FROM terminer_etape
+			WHERE tour_annee=GETSELECTEDTOUR
+			AND (GETSELECTEDTOUR-TO_CHAR(cycliste_daten,'YYYY')) < 26
+			AND etape_num=n_etape
+			ORDER BY gene_class asc
+		)
+		WHERE rownum <= nb_ligne;
 	
 	rang number(3) := 1;
 	tps_first participant.part_tps_gene%TYPE := 0;
@@ -264,11 +265,11 @@ BEGIN
 				htp.tableData(recpart.equipe_nom);
 				htp.tableData(formated_time(recpart.gene_tps));
         
-				IF recpart.gene_tps_ecart != 0 THEN
-        htp.tableData('+ ' || formated_time(recpart.gene_tps-tps_first));
-      ELSE
-        htp.tableData('');
-      END IF;
+				IF recpart.gene_tps-tps_first != 0 THEN
+					htp.tableData('++ ' || formated_time(recpart.gene_tps-tps_first));
+				  ELSE
+					htp.tableData('');
+				 END IF;
         
 			htp.tableRowClose;
 			htp.tableRowOpen;
