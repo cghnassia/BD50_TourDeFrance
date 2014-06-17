@@ -54,6 +54,7 @@ PROCEDURE gestion IS
 		<div id="navigationAdmin">
 			<ul>
 				<li class="pas inbl"><a href="ui_commun.ui_home">Accueil</a></li>
+				<li class="pas inbl"><a href="ui_administration.ui_form_passer">Saisie résultats</a></li>
 			</ul>
 		</div>
 	</header>');
@@ -61,7 +62,7 @@ END header_admin;
 
 PROCEDURE              "UI_FORM_PASSER" (
 v_etape_num etape.etape_num%TYPE default 1, 
-v_pt_pass_num point_passage.pt_pass_num%TYPE default 0,
+v_pt_pass_num point_passage.pt_pass_num%TYPE default 1,
 v_part_num participant.part_num%TYPE default 0,
 v_temps VARCHAR2 default '',
 v_code NUMBER default 0,
@@ -100,8 +101,8 @@ END UI_FORM_PASSER;
 
 
 PROCEDURE UI_EXECFORM_PASSER (
-	select_etape etape.etape_num%TYPE default 0,
-	select_passage point_passage.pt_pass_num%TYPE default 0,
+	select_etape etape.etape_num%TYPE default 1,
+	select_passage point_passage.pt_pass_num%TYPE default 1,
 	select_participant participant.part_num%TYPE default 0,
   text_temps VARCHAR2 DEFAULT '',
   button_submit VARCHAR2 DEFAULT NULL
@@ -145,14 +146,15 @@ END UI_EXECFORM_PASSER;
 
 
 PROCEDURE              "UI_AFF_SELECT_POINT_PASSAGES" (
-	v_etape_num etape.etape_num%TYPE default 0,
-  v_pt_pass_num point_passage.pt_pass_num%TYPE default 0
+	v_etape_num etape.etape_num%TYPE default 1,
+	v_pt_pass_num point_passage.pt_pass_num%TYPE default 1
 )
 IS
 CURSOR c_point_passage IS 
 SELECT * FROM point_passage WHERE tour_annee=ui_utils.getSelectedTour AND etape_num=v_etape_num ORDER BY pt_pass_num ASC;
 r_point_passage c_point_passage%ROWTYPE;
 BEGIN
+	
 	htp.print('</br><div class="line">
               <div class="inbl w20"> Point de passage</div>
               <div class="inbl"><select  name="select_passage" onchange="document.getElementById(''form_passer'').submit()" style="width:300px;"></div>
@@ -162,13 +164,13 @@ BEGIN
 		FETCH c_point_passage INTO r_point_passage;
 		EXIT WHEN c_point_passage%NOTFOUND;
     
-    htp.print('"<option value="' || r_point_passage.pt_pass_num || '"');
-    
-    IF r_point_passage.pt_pass_num = v_pt_pass_num THEN
-      htp.print(' selected="selected"');
-    END IF;
-    
-    htp.print('> Numéro ' || r_point_passage.pt_pass_num || ' (' || r_point_passage.pt_pass_nom ||')</option>');
+		htp.print('"<option value="' || r_point_passage.pt_pass_num || '"');
+		
+		IF r_point_passage.pt_pass_num = v_pt_pass_num THEN
+		  htp.print(' selected="selected"');
+		END IF;
+		
+		htp.print('> Numéro ' || r_point_passage.pt_pass_num || ' (' || r_point_passage.pt_pass_nom ||')</option>');
     
 	END LOOP;
 	CLOSE c_point_passage;
@@ -177,9 +179,9 @@ END UI_AFF_SELECT_POINT_PASSAGES;
 
 
 PROCEDURE              "UI_AFF_SELECT_PARTICIPANTS" (
-	v_etape_num etape.etape_num%TYPE default 0,
-	v_pt_pass_num point_passage.pt_pass_num%TYPE default 0,
-  v_part_num participant.part_num%TYPE default 0
+	v_etape_num etape.etape_num%TYPE default 1,
+	v_pt_pass_num point_passage.pt_pass_num%TYPE default 1,
+	v_part_num participant.part_num%TYPE default 0
 )
 IS
   c_participant SYS_REFCURSOR;
@@ -216,9 +218,9 @@ BEGIN
   ELSE
     OPEN c_participant FOR 
       'SELECT * FROM participant WHERE tour_annee= ' || ui_utils.getSelectedTour || ' AND etape_num IS NULL 
-      AND pr.part_num NOT IN (
+      AND part_num NOT IN (
         SELECT part_num FROM passer WHERE tour_annee = ' || ui_utils.getSelectedTour || ' AND etape_num = ' || v_etape_num || ' AND pt_pass_num =' || v_pt_pass_num || ')
-      ORDER BY pr.part_num ASC';
+      ORDER BY part_num ASC';
   END IF;
   
 	LOOP
@@ -236,7 +238,7 @@ BEGIN
       
       htp.print('> Dossard ' || r_participant.part_num || ' (' || r_participant.cycliste_prenom || ' ' || r_participant.cycliste_nom || ')</option>');
       
-      END LOOP;
+     END LOOP;
     CLOSE c_participant;
 	htp.print('</select></div>');
   
@@ -244,7 +246,8 @@ BEGIN
     BEGIN
       SELECT pass_tps INTO v_temps FROM passer WHERE tour_annee= ui_utils.getSelectedTour AND etape_num = v_etape_num AND pt_pass_num = (v_pt_pass_num - 1) AND part_num = v_part_num_selected;
     EXCEPTION
-      WHEN OTHERS THEN htp.print(sqlerrm);
+      WHEN OTHERS THEN
+		v_temps := 0;
     END;
   END IF;
   
@@ -256,7 +259,7 @@ BEGIN
 END UI_AFF_SELECT_PARTICIPANTS;
 
 PROCEDURE              "UI_AFF_SELECT_ETAPES" (
-  v_etape_num etape.etape_num%TYPE default 0
+  v_etape_num etape.etape_num%TYPE default 1
 ) IS
 CURSOR c_etape IS 
 SELECT * FROM etape WHERE tour_annee=ui_utils.getSelectedTour ORDER BY etape_num ASC;

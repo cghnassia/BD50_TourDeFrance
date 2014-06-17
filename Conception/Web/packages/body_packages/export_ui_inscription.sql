@@ -158,6 +158,9 @@
     fetch equipes into rec_equipe;
 	END LOOP;
   htp.tableClose;
+  if (cpt=1) then
+	htp.print('<script language="javascript">document.location.href="ui_inscription.ui_detail_equipe?n_equipe='||rec_equipe.equipe_num||'"</script>');
+  end if;
   UI_COMMUN.UI_MAIN_CLOSE;
   UI_COMMUN.UI_FOOTER;
 END UI_LEQUIPE;
