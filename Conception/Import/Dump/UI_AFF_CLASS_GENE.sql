@@ -28,15 +28,9 @@ BEGIN
 		
 		FOR recpart in cur_part LOOP
 			cpt:=cpt+1;
-			
-			IF(MOD(cpt,2)=0) THEN
-				htp.tableRowOpen(cattributes => 'class="rowP"');
-			ELSE
-				htp.tableRowOpen;
-			END IF;
-		
+      COLOR_ROW_P(cpt);
 			htp.tableData(recpart.gene_class);
-			htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+			htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 			htp.tableData(recpart.part_num);
 			htp.tableData(recpart.equipe_nom);
 			htp.tableData(formated_time(recpart.gene_tps));

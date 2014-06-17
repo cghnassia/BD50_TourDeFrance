@@ -18,6 +18,7 @@ set define off;
 		ORDER BY gene_equi_class;
 	
 	first_tps equipe.equipe_tps_gene%TYPE;
+  cpt number(3) := 0;
 BEGIN
 	SELECT 
 		gene_equi_tps INTO first_tps 
@@ -33,9 +34,10 @@ BEGIN
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
 			FOR recequi in cur_equi LOOP
-				htp.tableRowOpen;
+          cpt:=cpt+1;
+          COLOR_ROW_P(cpt);
 					htp.tableData(recequi.gene_equi_class);
-					htp.tableData(htf.anchor ('ui_detail_equipe?nequi=' || recequi.equipe_num,recequi.equipe_nom));
+					htp.tableData(htf.anchor ('ui_detail_equipe?n_equipe=' || recequi.equipe_num,recequi.equipe_nom));
 					htp.tableData(formated_time(recequi.gene_equi_tps));
           
 					IF recequi.gene_equi_tps-first_tps != 0 THEN

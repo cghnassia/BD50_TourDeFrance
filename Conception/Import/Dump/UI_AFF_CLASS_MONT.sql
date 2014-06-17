@@ -17,7 +17,7 @@ set define off;
 		AND gene_class_mont!=0 
 		ORDER BY gene_class_mont;
 	
-	
+	cpt number(3) := 0;
 BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
@@ -27,9 +27,10 @@ BEGIN
 		htp.tableheader('Points');
 		
 	FOR recpart in cur_part LOOP
-		htp.tableRowOpen;
+      cpt:=cpt+1;
+      COLOR_ROW_P(cpt);
 			htp.tableData(recpart.gene_class_mont);
-			htp.tableData(htf.anchor ('ui_detail_participant?vnum_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
+			htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 			htp.tableData(recpart.part_num);
 			htp.tableData(recpart.equipe_nom);
 			htp.tableData(recpart.gene_pts_mont);

@@ -40,9 +40,9 @@ BEGIN
   
 			htp.print('
 			<div class="row h2-like greyFrame">  '||v_etape.ville_nom_debuter|| ' / '||v_etape.ville_nom_finir|| '</div>
-				<div class="row h3-like greyFrame">'||v_etape.etape_dIStance||' km - TYPE :  '||v_etape.tetape_lib||'</div>
+				<div class="row h3-like greyFrame">'||v_etape.etape_distance||' km - TYPE :  '||v_etape.tetape_lib||'</div>
 				</br>
-			<div class="row h4-like">Porteurs de maillot à l''ISsue de l''étape '||n_etape||'</div>
+			<div class="row h4-like">Porteurs de maillot à l''issue de l''étape '||n_etape||'</div>
 			<div class="row separation1"></div>
 			<div class="row">
 				<div class="grid">
@@ -55,7 +55,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('jaune',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_gene_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_gene_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -65,7 +65,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('vert',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_sprint_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_sprint_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -75,7 +75,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('pois',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_mont_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_mont_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -85,7 +85,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('blanc',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_jeune_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_jeune_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -95,7 +95,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_porteur('etape',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_etape_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_etape_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -105,7 +105,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||recup_leader_equipe(n_etape).equipe_nom||'</div>
 							</div>
-							<div><a href="ui_class_equipe_complet?n_etape='||GETSELECTEDETAPE||'">Détail</a></div>
+							<div><a href="ui_class_equipe_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 					</div>
 				</div>
@@ -134,7 +134,11 @@ BEGIN
 					
 					htp.tableData(recpp.pt_pass_num);
 					htp.tableData(recpp.pt_pass_nom);
-					htp.tableData(recpp.pt_pass_ville_nom);
+					IF (recpp.pt_pass_ville_nom = 'NULL') THEN
+            htp.tableData('&nbsp;');
+          ELSE
+            htp.tableData(recpp.pt_pass_ville_nom);
+          END IF;
 					htp.tableData(recpp.pt_pass_km_dep);
 					htp.tableData(recpp.pt_pass_km_arr);
 					htp.tableData(recpp.pt_pass_alt);

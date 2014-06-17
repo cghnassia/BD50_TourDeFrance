@@ -27,12 +27,8 @@ BEGIN
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
 			FOR recpart in cur_part LOOP
-				cpt:=cpt+1;
-        IF(mod(cpt,2)=0) THEN
-				  htp.tableRowOpen(cattributes => 'class="rowP"');
-			  ELSE
-			   htp.tableRowOpen;
-			  END IF;
+        cpt:=cpt+1;
+        COLOR_ROW_P(cpt);
 				htp.tableData(recpart.etape_class);
 				htp.tableData(htf.anchor ('ui_detail_participant?n_part=' || recpart.part_num,recpart.cycliste_nom ||' '||recpart.cycliste_prenom)||' ('||RECUP_ACRO_PAYS(recpart.part_num)||')');
 				htp.tableData(recpart.part_num);
