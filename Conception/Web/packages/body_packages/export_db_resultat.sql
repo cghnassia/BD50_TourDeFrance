@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - lundi-juin-16-2014   
+--  Fichier créé - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package Body DB_RESULTAT
@@ -22,6 +22,8 @@ BEGIN
   AND etape_num    = n_etape
   AND etape_class  = 1;
   RETURN n_part;
+    EXCEPTION WHEN OTHERS THEN
+    null;
 END getLeaderEtape;
 
 
@@ -38,6 +40,8 @@ BEGIN
   AND maillot_couleur = v_maillot ;
 
   return db_inscription.getPart(n_part);
+    EXCEPTION WHEN OTHERS THEN
+    null;
 END getPorteur;
 
 
@@ -53,6 +57,8 @@ END getPorteur;
   and rownum = 1;
   
   return db_inscription.getEquipe(n_equipe);
+    EXCEPTION WHEN OTHERS THEN
+    null;
   END getEquipeLeader;
   
   
@@ -72,6 +78,8 @@ END getPorteur;
       AND gene_equi_class!=0  
       ORDER BY gene_equi_class;
     return cur_equipe;
+    EXCEPTION WHEN OTHERS THEN
+    null;
    END getEquipeRanking;
    
    FUNCTION getTempsEquipeLeader(n_etape etape.etape_num%TYPE default db_commun.getLastEtape)
@@ -86,6 +94,8 @@ END getPorteur;
     AND etape_num=n_etape 
     AND gene_equi_class=1;
    return tps;
+       EXCEPTION WHEN OTHERS THEN
+    null;
    END getTempsEquipeLeader;
    
    FUNCTION getEtapeRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default 1)
@@ -104,6 +114,8 @@ END getPorteur;
 		AND etape_class != 0 
 		ORDER BY etape_class;
     return cur_part;
+        EXCEPTION WHEN OTHERS THEN
+    null;
     END getEtapeRanking;
    
     FUNCTION getGeneRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape)
@@ -140,6 +152,8 @@ END getPorteur;
 		)
 		WHERE rownum <= nb_ligne;
     return cur_part;
+        EXCEPTION WHEN OTHERS THEN
+    null;
   END getJeuneRanking;
 
     FUNCTION getMontRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default 1)
@@ -158,6 +172,8 @@ END getPorteur;
 		 AND gene_class_mont!=0 
 		 ORDER BY gene_class_mont;
     return cur_part;
+        EXCEPTION WHEN OTHERS THEN
+    null;
   END getMontRanking;
   
   FUNCTION getSprintRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default 1)
@@ -176,6 +192,8 @@ END getPorteur;
 		AND etape_num=n_etape 
 		ORDER BY gene_class_sprint;
     return cur_part;
+        EXCEPTION WHEN OTHERS THEN
+    null;
   END getSprintRanking;
   
 END DB_RESULTAT;

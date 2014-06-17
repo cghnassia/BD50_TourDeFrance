@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - lundi-juin-16-2014   
+--  Fichier créé - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package Body UI_COMMUN
@@ -40,6 +40,7 @@ BEGIN
 			<div>' || v_tour.tour_edition || 'e édition </br> ' || v_tour.tour_dated || ' - ' || v_tour.tour_datef ||' </div>
 			<div>');
       UI_SELECT_TOUR(ui_utils.getSelectedTour);
+      ui_authentification.cadreAuth;
 	htp.print('</div>
 		</div>
 		<div id="navigation">
@@ -129,7 +130,7 @@ BEGIN
 		htp.print('<div>     
 					<img class="left" src="'|| ui_param_commun.path_img||'equipe.png" alt="Maillot equipe">
 					<div class="mod">N°'||db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_num||
-					'</br>'|| htf.anchor ('ui_detail.ui_detail_equipe?n_equipe=' || db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_num,db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_nom)||
+					'</br>'|| htf.anchor ('ui_inscription.ui_detail_equipe?n_equipe=' || db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_num,db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_nom)||
 					'</br>'||db_resultat.getEquipeLeader(db_commun.getLastEtape).equipe_pays||'</div>
 					</div>');
 		htp.print('</div/>
@@ -147,8 +148,8 @@ BEGIN
           <div>     
           <img class="left" src="'|| ui_param_commun.path_img||v_maillot||'.png" alt="Maillot '||v_maillot||'">
           <div class="mod">N°'||db_resultat.getPorteur(v_maillot,n_etape).part_num||
-            '</br>'|| htf.anchor ('ui_detail.ui_detail_participant?n_part=' || db_resultat.getPorteur(v_maillot,n_etape).part_num,db_resultat.getPorteur(v_maillot,n_etape).cycliste_prenom||' '||db_resultat.getPorteur(v_maillot,n_etape).cycliste_nom)||
-            '</br>'|| htf.anchor ('ui_detail.ui_detail_equipe?n_equipe=' || db_resultat.getPorteur(v_maillot,n_etape).equipe_num,db_resultat.getPorteur(v_maillot,n_etape).equipe_nom)||
+            '</br>'|| htf.anchor ('ui_inscription.ui_detail_participant?n_part=' || db_resultat.getPorteur(v_maillot,n_etape).part_num,db_resultat.getPorteur(v_maillot,n_etape).cycliste_prenom||' '||db_resultat.getPorteur(v_maillot,n_etape).cycliste_nom)||
+            '</br>'|| htf.anchor ('ui_inscription.ui_detail_equipe?n_equipe=' || db_resultat.getPorteur(v_maillot,n_etape).equipe_num,db_resultat.getPorteur(v_maillot,n_etape).equipe_nom)||
             '</br>'||db_resultat.getPorteur(v_maillot,n_etape).cycliste_pays||'</div>
         </div>
   ');

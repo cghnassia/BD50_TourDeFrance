@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - lundi-juin-16-2014   
+--  Fichier créé - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package DB_COMMUN
@@ -106,6 +106,45 @@ END DB_RESULTAT;
 
 /
 --------------------------------------------------------
+--  DDL for Package UI_AUTHENTIFICATION
+--------------------------------------------------------
+
+  CREATE OR REPLACE PACKAGE "G11_FLIGHT"."UI_AUTHENTIFICATION" AS 
+
+  --Affiche le formulaire de login
+  PROCEDURE formLogin;
+  
+  --Cadre affiché si utilisateur loggé
+  PROCEDURE formLogged(login varchar2 default'') ;
+  
+  --Verificiation si utilisateur existe dans la base
+  FUNCTION userExist(login varchar2, pass varchar2) return boolean;
+  
+  --Retourne les infos de l'utilisateur
+  FUNCTION getUser(login varchar2) return utilisateur%rowtype;
+  
+  --Procédure de traitement pour l'authentification
+  PROCEDURE verifAuth(login varchar2, pass varchar2, prev_url varchar2);
+
+  --Cadre contenant une erreur d'authentification
+  PROCEDURE formError ;
+  
+  --Cadre d'authentification
+  PROCEDURE cadreAuth ;
+  
+    --Déconnexion
+  PROCEDURE logOut ;
+  
+      --Administration
+  PROCEDURE gestion ;
+  
+        --Page de login
+  PROCEDURE login ;
+
+END UI_AUTHENTIFICATION;
+
+/
+--------------------------------------------------------
 --  DDL for Package UI_COMMUN
 --------------------------------------------------------
 
@@ -195,7 +234,7 @@ END UI_PARAM_COMMUN;
   
   PROCEDURE UI_CLASS_EQUIPE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape);
   
-  PROCEDURE UI_CLASS_ETAPE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape);
+  PROCEDURE UI_CLASS_ETAPE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default ui_utils.getSelectedEtape);
   
   PROCEDURE UI_CLASS_GENE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape);
   

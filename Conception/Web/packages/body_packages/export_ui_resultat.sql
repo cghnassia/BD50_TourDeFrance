@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - lundi-juin-16-2014   
+--  Fichier créé - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package Body UI_RESULTAT
@@ -282,12 +282,16 @@ BEGIN
 		null;
 END UI_CLASS_EQUIPE_COMPLET;
   
-    PROCEDURE UI_CLASS_ETAPE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape) IS
+    PROCEDURE UI_CLASS_ETAPE_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default ui_utils.getSelectedEtape) IS
   BEGIN
 	UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement de l''étape '||n_etape||'</h3>');
+      htp.print('<div class="row">
+      <div class="col"><h3>Classement de l''étape '||n_etape||'</h3></div>
+      <div class="col w20">'); 
+				UI_COMMUN.UI_SELECT_ETAPE(n_etape);       
+      htp.print('</div></div>');
 			UI_RESULTAT.UI_AFF_CLASS_ETAPE(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;

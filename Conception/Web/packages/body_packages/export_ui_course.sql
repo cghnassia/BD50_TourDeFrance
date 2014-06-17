@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - lundi-juin-16-2014   
+--  Fichier créé - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package Body UI_COURSE
@@ -68,11 +68,11 @@ BEGIN
 				UI_COMMUN.UI_SELECT_ETAPE(n_etape); 
 				htp.print('</div>
 			</div>');
-  
 			htp.print('
 			<div class="row h2-like greyFrame">  '||v_etape.ville_nom_debuter|| ' / '||v_etape.ville_nom_finir|| '</div>
 				<div class="row h3-like greyFrame">'||v_etape.etape_distance||' km - TYPE :  '||v_etape.tetape_lib||'</div>
-				</br>
+				</br>');
+      htp.print('
 			<div class="row h4-like">Porteurs de maillot à l''issue de l''étape '||n_etape||'</div>
 			<div class="row separation1"></div>
 			<div class="row">
@@ -86,7 +86,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||db_resultat.getPorteur('jaune',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_gene_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_gene_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -96,7 +96,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||db_resultat.getPorteur('vert',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_sprint_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_sprint_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -106,7 +106,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||db_resultat.getPorteur('pois',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_mont_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_mont_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -116,7 +116,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||db_resultat.getPorteur('blanc',n_etape).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_jeune_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_jeune_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -124,9 +124,9 @@ BEGIN
 								<div class="inbl">Vainqueur de l''étape</div>
 							</div>  
 							<div class="line">
-								<div class="inbl">'||db_resultat.getPorteur('etape',n_etape).cycliste_nom||'</div>
+								<div class="inbl">'||db_inscription.getPart(db_resultat.getLeaderEtape(n_etape)).cycliste_nom||'</div>
 							</div>
-							<div><a href="ui_class_etape_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_etape_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 						<div>
 							<div class="line">
@@ -136,7 +136,7 @@ BEGIN
 							<div class="line">
 								<div class="inbl">'||db_resultat.getEquipeLeader(n_etape).equipe_nom||'</div>
 							</div>
-							<div><a href="ui_class_equipe_complet?n_etape='||n_etape||'">Détail</a></div>
+							<div><a href="ui_resultat.ui_class_equipe_complet?n_etape='||n_etape||'">Détail</a></div>
 						</div>
 					</div>
 				</div>
