@@ -31,7 +31,7 @@
   FUNCTION getLastEtape RETURN etape.etape_num%TYPE IS
    n_etape etape.etape_num%TYPE;
    BEGIN
-	  SELECT max(etape_num) INTO n_etape FROM terminer_etape WHERE tour_annee=ui_utils.getSelectedTour;
+	  SELECT max(etape_num) INTO n_etape FROM porter WHERE tour_annee=ui_utils.getSelectedTour;
      return n_etape;
    END getLastEtape;
    

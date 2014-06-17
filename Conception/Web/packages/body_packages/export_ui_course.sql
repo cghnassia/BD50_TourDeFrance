@@ -87,8 +87,8 @@ BEGIN
 								<div class="inbl">'||db_resultat.getPorteur('jaune',n_etape).cycliste_nom||'</div>
 							</div>
 							<div><a href="ui_resultat.ui_class_gene_complet?n_etape='||n_etape||'">Détail</a></div>
-						</div>
-						<div>
+						</div>');
+						htp.print('<div>
 							<div class="line">
 								<div class="inbl"><img src="'|| ui_param_commun.path_img || 'vert_min.png" alt="Maillot Vert"></div>
 								<div class="inbl">Maillot Vert</div>

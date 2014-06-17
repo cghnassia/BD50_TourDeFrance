@@ -37,6 +37,7 @@
 		
   parts := db_inscription.getPartCrit(crit_nom,crit_pnom);
   fetch parts into rec_part;
+  
 	while(parts%found) loop
 		cpt:=cpt+1;
 		IF (rec_part.equipe_num!=prev AND prev=0) THEN
@@ -103,6 +104,9 @@
     
   fetch parts into rec_part;  
 	END LOOP;
+  if (cpt=1) then
+	    htp.print('<script language="javascript">document.location.href="ui_inscription.ui_detail_participant?n_part='||rec_part.part_num||'"</script>');
+  end if;
   UI_COMMUN.UI_MAIN_CLOSE;
   
   END UI_LPARTICIPANT;

@@ -23,7 +23,7 @@ BEGIN
   AND etape_class  = 1;
   RETURN n_part;
     EXCEPTION WHEN OTHERS THEN
-    null;
+    return null;
 END getLeaderEtape;
 
 
@@ -41,7 +41,7 @@ BEGIN
 
   return db_inscription.getPart(n_part);
     EXCEPTION WHEN OTHERS THEN
-    null;
+    return null;
 END getPorteur;
 
 
@@ -58,7 +58,7 @@ END getPorteur;
   
   return db_inscription.getEquipe(n_equipe);
     EXCEPTION WHEN OTHERS THEN
-    null;
+    return null;
   END getEquipeLeader;
   
   

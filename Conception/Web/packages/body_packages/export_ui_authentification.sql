@@ -13,9 +13,9 @@
     htp.print('<div class="w90 txtleft">');
       htp.FORmopen(curl=>'ui_authentification.verifAuth', cmethod=>'POST');
       htp.print('Login:');
-			htp.FORmtext('login');
+			htp.FORmtext('login', cattributes=>'style="width:200px;"');
 			htp.print('Mot de passe:');
-			htp.FORmPassword('pass');
+			htp.FORmPassword('pass', cattributes=>'style="width:200px;"');
       htp.FORmhidden('prev_url',owa_util.get_procedure);
 			htp.FORmsubmit(cvalue=>'OK');
 			htp.FORmclose;
@@ -26,8 +26,11 @@
    BEGIN
     htp.print('<div class="w90 txtleft">');
       htp.print(ui_utils.getCookieValue('user')||' connecté');
+      htp.print('</br>');
+      htp.anchor ('ui_administration.gestion','Administration');
+      htp.print('</br>');
       htp.anchor ('ui_authentification.logOut','Déconnexion');
-      htp.anchor ('ui_authentification.gestion','Administration');
+      
     htp.print('</div>');
   END formLogged;
   
@@ -81,7 +84,7 @@
   
   PROCEDURE formError IS
   BEGIN
-        htp.print('<div>Login ou mot de passe éronné</div>');
+        htp.print('<div><font color="red">Erreur de login et/ou mot de passe</font></div>');
   END formError;
   
   PROCEDURE cadreAuth IS
@@ -109,42 +112,13 @@
     owa_util.http_header_close;
   END logOut;
   
-  PROCEDURE gestion IS
-  BEGIN
-       
-       htp.print('<h1>Page d''administration</h1>');
-       
-       IF(ui_utils.existCookie('profil')) THEN
-       
-        htp.print(ui_utils.getCookieValue('user')||' connecté</br>');
-        htp.anchor ('ui_commun.ui_home','Accueil</br>');
-       
-       IF(ui_utils.getCookieValue('profil')='administrateur') THEN
-          htp.anchor ('#','Administration du Tour');
-        END IF;
-        
-        IF(ui_utils.getCookieValue('profil')='cpp') THEN
-        htp.anchor ('#','Gestion point de passage');
-        END IF;
-        
-        IF(ui_utils.getCookieValue('profil')='cc') THEN
-        htp.anchor ('#','Gestion de la course');
-        END IF;
-        
-        ELSE
-        
-        htp.print('Vous êtes arrivé ici par erreur.');
-        htp.anchor ('ui_commun.ui_home','Accueil');
-        
-        END IF;
-        
-  END gestion;
+  
   
     PROCEDURE login IS
   BEGIN
       UI_COMMUN.UI_HEAD;
 	    UI_COMMUN.UI_MAIN_OPEN;
-      htp.print('<div class="row h2-like greyFrame">Authentification</div>');
+      htp.print('<div class="row h2-like greyFrame">Authentification</div></br></br>');
       IF(ui_utils.existCookie('error')) THEN
          IF(ui_utils.getCookieValue('error')=1) THEN
           ui_authentification.formError;
