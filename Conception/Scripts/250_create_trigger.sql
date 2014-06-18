@@ -258,7 +258,7 @@ BEGIN
 		
 EXCEPTION
 	WHEN no_data_found THEN dbms_output.put_line('Fatal erreur');
-	WHEN inconsistency_km THEN THEN 
+	WHEN inconsistency_km THEN
 		dbms_output.put_line('Erreur de cohérence: Vérifier que le kilométrage est supérieur au point de passage précédent');
 		RAISE inconsistency_km;
 END ti_point_passage;
@@ -377,7 +377,7 @@ BEGIN
 		END IF;
   END IF;
   
-  update_classements(:new.tour_annee, :new.etape_num);
+  db_resultat.update_classements(:new.tour_annee, :new.etape_num);
   
   --Si tous les participants au départ de l'étape n'ont pas abandonné, on met à jour les données dans participant
   SELECT COUNT(te.part_num) INTO v_still_running

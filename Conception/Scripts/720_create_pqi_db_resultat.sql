@@ -31,6 +31,8 @@ IS
    FUNCTION getSprintRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default 1)
    return db_param_commun.ref_cur;
   
+   PROCEDURE update_classements (v_tour_annee tour.tour_annee%TYPE ,v_etape_num etape.etape_num%TYPE);
+   
 END DB_RESULTAT;
 
 /
