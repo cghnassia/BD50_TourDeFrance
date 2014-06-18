@@ -12,7 +12,7 @@ prompt  APPLICATION 105 - ADMIN Tour de france
 -- Application Export:
 --   Application:     105
 --   Name:            ADMIN Tour de france
---   Date and Time:   08:53 Wednesday June 18, 2014
+--   Date and Time:   09:06 Wednesday June 18, 2014
 --   Exported By:     G11_FLIGHT
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -158,7 +158,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_104105'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140618085308',
+  p_checksum_salt_last_reset => '20140618090622',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -198,7 +198,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'G11_FLIGHT',
-  p_last_upd_yyyymmddhh24miss=> '20140618085308',
+  p_last_upd_yyyymmddhh24miss=> '20140618090622',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -322,6 +322,19 @@ prompt  ...Application Tabs
  
 begin
  
+--application/shared_components/navigation/tabs/standard/g_tours_4
+wwv_flow_api.create_tab (
+  p_id=> 5004611043600580 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_tab_set=> 'TS1',
+  p_tab_sequence=> 9,
+  p_tab_name=> 'G_TOURS_4',
+  p_tab_text => 'Accueil',
+  p_tab_step => 41,
+  p_tab_also_current_for_pages => '42',
+  p_tab_parent_tabset=>'',
+  p_tab_comment  => '');
+ 
 --application/shared_components/navigation/tabs/standard/t_home
 wwv_flow_api.create_tab (
   p_id=> 9663148199678658 + wwv_flow_api.g_id_offset,
@@ -333,6 +346,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 1,
   p_tab_also_current_for_pages => '',
   p_tab_parent_tabset=>'',
+  p_display_condition_type=> 'NEVER',
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/t_cycliste
@@ -348,19 +362,6 @@ wwv_flow_api.create_tab (
   p_tab_parent_tabset=>'',
   p_tab_comment  => '');
  
---application/shared_components/navigation/tabs/standard/g_tours_4
-wwv_flow_api.create_tab (
-  p_id=> 5004611043600580 + wwv_flow_api.g_id_offset,
-  p_flow_id=> wwv_flow.g_flow_id,
-  p_tab_set=> 'TS1',
-  p_tab_sequence=> 31,
-  p_tab_name=> 'G_TOURS_4',
-  p_tab_text => 'Tours',
-  p_tab_step => 41,
-  p_tab_also_current_for_pages => '42',
-  p_tab_parent_tabset=>'',
-  p_tab_comment  => '');
- 
 --application/shared_components/navigation/tabs/standard/etapes
 wwv_flow_api.create_tab (
   p_id=> 9710139301391089 + wwv_flow_api.g_id_offset,
@@ -372,6 +373,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 19,
   p_tab_also_current_for_pages => '20',
   p_tab_parent_tabset=>'',
+  p_display_condition_type=> 'NEVER',
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/difrecteurs_sportifs
@@ -8533,7 +8535,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140615094941'
+ ,p_last_upd_yyyymmddhh24miss => '20140618090441'
   );
 null;
  
@@ -9093,7 +9095,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140615100926'
+ ,p_last_upd_yyyymmddhh24miss => '20140618090441'
   );
 null;
  
@@ -20477,7 +20479,7 @@ end;
 
  
 --application/pages/page_00041
-prompt  ...PAGE 41: Tour
+prompt  ...PAGE 41: Accueil
 --
  
 begin
@@ -20487,18 +20489,23 @@ wwv_flow_api.create_page (
  ,p_id => 41
  ,p_user_interface_id => 9661538989678584 + wwv_flow_api.g_id_offset
  ,p_tab_set => 'TS1'
- ,p_name => 'Tour'
- ,p_step_title => 'Tour'
+ ,p_name => 'Accueil'
+ ,p_step_title => 'Accueil'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title => 'Tour'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140615092909'
+ ,p_last_upd_yyyymmddhh24miss => '20140618090527'
   );
 null;
  
@@ -21016,18 +21023,23 @@ wwv_flow_api.create_page (
  ,p_tab_set => 'TS1'
  ,p_name => 'Master Detail'
  ,p_step_title => 'Master Detail'
+ ,p_allow_duplicate_submissions => 'Y'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
  ,p_javascript_code => 
 'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'||unistr('\000a')||
 'var htmldb_ch_message=''"OK_TO_GET_NEXT_PREV_PK_VALUE"'';'
  ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618083910'
+ ,p_last_upd_yyyymmddhh24miss => '20140618090622'
   );
 null;
  
@@ -21041,7 +21053,8 @@ declare
 begin
 s:=s||'<br/>'||unistr('\000a')||
 '<a href="f?p=&APP_ID.:49:&SESSION.:::RP:P49_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des participants</a><br/>'||unistr('\000a')||
-'<a href="f?p=&APP_ID.:57:&SESSION.:::RP:P28_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des équipes</a>'||unistr('\000a')||
+'<a href="f?p=&APP_ID.:57:&SESSION.:::RP:P28_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des équipes</a><br/>'||unistr('\000a')||
+'<a href="f?p=&APP_ID.:19:&SESSION.::NO">Gestion des étapes</a>'||unistr('\000a')||
 '';
 
 wwv_flow_api.create_page_plug (
@@ -21570,6 +21583,7 @@ wwv_flow_api.create_page_button(
   p_button_alignment=> 'RIGHT',
   p_button_redirect_url=> 'javascript:apex.widget.tabular.addRow();',
   p_button_execute_validations=>'N',
+  p_button_condition_type=> 'NEVER',
   p_required_patch => null + wwv_flow_api.g_id_offset);
  
 wwv_flow_api.create_page_button(
@@ -27425,6 +27439,8 @@ wwv_flow_api.create_list_item (
   p_list_item_display_sequence=>40,
   p_list_item_link_text=> 'Gestion des équipes',
   p_list_item_link_target=> 'f?p=&APP_ID.:17:&SESSION.::&DEBUG.::::',
+  p_list_item_disp_cond_type=> 'NEVER',
+  p_list_item_disp_condition=> '',
   p_list_countclicks_y_n=> 'N',
   p_list_text_01=> '',
   p_list_item_current_type=> 'TARGET_PAGE',
