@@ -1,0 +1,26 @@
+connect G11_FLIGHT/G11_FLIGHT
+set define off
+Start 510_create_pqi_ui_parap_commun.sql
+Start 510_create_pqi_db_parap_commun.sql
+Start 520_create_pqi_ui_commun.sql
+Start 520_create_pqb_ui_commun.sql
+Start 530_create_pqi_db_commun.sql
+Start 530_create_pqb_db_commun.sql
+Start 540_create_pqi_ui_utils.sql
+Start 540_create_pqb_ui_utils.sql
+Start 600_create_pqi_ui_course.sql
+Start 600_create_pqb_ui_course.sql
+Start 610_create_pqi_ui_inscription.sql
+Start 610_create_pqb_ui_inscription.sql
+Start 620_create_pqi_ui_resultat.sql
+Start 620_create_pqb_ui_resultat.sql
+Start 630_create_pqi_ui_administration.sql
+Start 630_create_pqb_ui_administration.sql
+Start 640_create_pqi_ui_authentification.sql
+Start 640_create_pqb_ui_authentification.sql
+Start 700_create_pqi_db_course.sql
+Start 700_create_pqb_db_course.sql
+Start 710_create_pqi_db_inscription.sql
+Start 710_create_pqb_db_inscription.sql
+Start 720_create_pqi_db_resultat.sql
+Start 720_create_pqb_db_resultat.sql

@@ -117,7 +117,8 @@ BEGIN
 	UPDATE tour SET tour_datef = :new.etape_date WHERE tour_annee = :new.tour_annee;
 EXCEPTION
 		WHEN no_data_found THEN dbms_output.put_line('Erreur');
-END ajouter_etape;
+END ti_etape;
+/
 
 -- POINT_PASSAGE --
 CREATE OR REPLACE TRIGGER ti_point_passage
@@ -177,10 +178,11 @@ BEGIN
 		
 EXCEPTION
 	WHEN no_data_found THEN dbms_output.put_line('Fatal erreur');
-	WHEN inconsistency_km THEN THEN 
+	WHEN inconsistency_km THEN 
 		dbms_output.put_line('Erreur de cohérence: Vérifier que le kilométrage est supérieur au point de passage précédent');
 		RAISE inconsistency_km;
 END ti_point_passage;
+/
 
 -- -----------------------------------------------------------------------------
 --       GESTION DU CLASSEMENT
@@ -260,7 +262,7 @@ EXCEPTION
 		dbms_output.put_line('Erreur de cohérence: Vérifier que le kilométrage est supérieur au point de passage précédent');
 		RAISE inconsistency_km;
 END ti_point_passage;
-
+/
 
 --AJOUTER ENREGISTREMENT DANS PASSER
 CREATE OR REPLACE TRIGGER ti_passer_before
@@ -333,6 +335,7 @@ EXCEPTION
 		dbms_output.put_line('Problème d''incohérence: vérifier que le coureur a passer les points de passage précédents et/ou que le temps est supérieur');
 		raise inconstitency_passer;
 END ti_passer_before;
+/
 
 --
 
@@ -472,7 +475,7 @@ BEGIN
   END IF;
   
 END ti_passer_after;
-
+/
 
 -- TERMINER_ETAPE --
 CREATE OR REPLACE TRIGGER ti_terminer_etape
@@ -495,7 +498,7 @@ BEGIN
 EXCEPTION
   WHEN no_data_found THEN dbms_output.put_line('Erreur');
 END terminer_etape;
-
+/
 
 --AJOUTER ENREGISTREMENT DANS TERMINER_ETAPE_EQUIPE
 CREATE OR REPLACE TRIGGER ti_terminer_etape_equipe
@@ -513,7 +516,7 @@ BEGIN
 EXCEPTION
   WHEN no_data_found THEN dbms_output.put_line('Erreur');
 END terminer_etape_equipe;
-	
+/
 
 -- -----------------------------------------------------------------------------
 --       GESTION COMBATIF

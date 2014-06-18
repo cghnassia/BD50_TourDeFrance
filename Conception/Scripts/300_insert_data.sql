@@ -1,0 +1,27 @@
+connect G11_FLIGHT/G11_FLIGHT
+set define off
+
+Start 301_insert_data_pays.sql
+Start 302_insert_data_ville.sql
+Start 303_insert_data_cycliste.sql
+Start 304_insert_data_categorie.sql
+Start 305_insert_data_bareme.sql
+Start 306_insert_data_utilisateur.sql
+Start 307_insert_data_tour.sql
+Start 308_insert_data_etape.sql
+Start 309_insert_data_point_passage.sql
+Start 310_insert_data_equipe.sql
+Start 311_insert_data_directeur_sportif.sql
+Start 312_insert_data_participant.sql
+Start 313_insert_data_specialiste.sql
+Start 314_insert_data_passer.sql
+Start 315_insert_data_terminer_etape.sql
+Start 316_insert_data_terminer_etape_equipe.sql
+Start 317_insert_data_porter.sql
+Start 318_insert_data_diriger.sql
+Start 319_insert_data_voter_combatif.sql
+Start 320_insert_data_voter_super_combatif.sql
+Start 321_insert_data_consulter.sql
+Start 322_insert_data_controler.sql
+Start 250_create_trigger.sql
+
