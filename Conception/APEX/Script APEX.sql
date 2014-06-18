@@ -12,7 +12,7 @@ prompt  APPLICATION 105 - ADMIN Tour de france
 -- Application Export:
 --   Application:     105
 --   Name:            ADMIN Tour de france
---   Date and Time:   07:45 Wednesday June 18, 2014
+--   Date and Time:   08:40 Wednesday June 18, 2014
 --   Exported By:     G11_FLIGHT
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -25,21 +25,21 @@ prompt  APPLICATION 105 - ADMIN Tour de france
 --   Using SQL*Plus as the Oracle user APEX_040200 or as the owner (parsing schema) of the application
  
 -- Application Statistics:
---   Pages:                     31
---     Items:                  147
---     Computations:             8
---     Validations:             58
---     Processes:               57
---     Regions:                 63
---     Buttons:                 93
+--   Pages:                     33
+--     Items:                  155
+--     Computations:             9
+--     Validations:             67
+--     Processes:               63
+--     Regions:                 68
+--     Buttons:                102
 --   Shared Components:
 --     Logic:
 --     Navigation:
 --       Tab Sets:               1
---         Tabs:                11
+--         Tabs:                12
 --       Lists:                  5
 --       Breadcrumbs:            1
---         Entries:             26
+--         Entries:             28
 --       NavBar Entries:         1
 --     Security:
 --       Authentication:         1
@@ -158,7 +158,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_104105'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140618074527',
+  p_checksum_salt_last_reset => '20140618083944',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -198,7 +198,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'G11_FLIGHT',
-  p_last_upd_yyyymmddhh24miss=> '20140618074527',
+  p_last_upd_yyyymmddhh24miss=> '20140618083944',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -449,9 +449,9 @@ wwv_flow_api.create_tab (
   p_tab_set=> 'TS1',
   p_tab_sequence=> 100,
   p_tab_name=> 'Tour-Equipe',
-  p_tab_text => 'Tour-Equipe',
+  p_tab_text => 'Tour-Equipe 2',
   p_tab_step => 27,
-  p_tab_also_current_for_pages => '28',
+  p_tab_also_current_for_pages => '28,53',
   p_tab_parent_tabset=>'',
   p_display_condition_type=> 'NEVER',
   p_tab_comment  => '');
@@ -466,6 +466,20 @@ wwv_flow_api.create_tab (
   p_tab_text => 'Tour-Participant',
   p_tab_step => 48,
   p_tab_also_current_for_pages => '49',
+  p_tab_parent_tabset=>'',
+  p_display_condition_type=> 'NEVER',
+  p_tab_comment  => '');
+ 
+--application/shared_components/navigation/tabs/standard/tour_equipe2
+wwv_flow_api.create_tab (
+  p_id=> 5196419841013736 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_tab_set=> 'TS1',
+  p_tab_sequence=> 120,
+  p_tab_name=> 'Tour-Equipe2',
+  p_tab_text => 'Tour-Equipe2',
+  p_tab_step => 56,
+  p_tab_also_current_for_pages => '57',
   p_tab_parent_tabset=>'',
   p_display_condition_type=> 'NEVER',
   p_tab_comment  => '');
@@ -12474,7 +12488,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618014953'
+ ,p_last_upd_yyyymmddhh24miss => '20140618082322'
   );
 null;
  
@@ -12861,7 +12875,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618074527'
+ ,p_last_upd_yyyymmddhh24miss => '20140618082322'
   );
 null;
  
@@ -13008,8 +13022,8 @@ wwv_flow_api.create_report_columns (
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
   p_sum_column=> 'N',
-  p_hidden_column=> 'Y',
-  p_display_as=>'HIDDEN',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
   p_lov_show_nulls=> 'NO',
   p_column_width=> '16',
   p_is_required=> false,
@@ -13041,8 +13055,8 @@ wwv_flow_api.create_report_columns (
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
   p_sum_column=> 'N',
-  p_hidden_column=> 'Y',
-  p_display_as=>'HIDDEN',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
   p_lov_show_nulls=> 'NO',
   p_column_width=> '16',
   p_is_required=> false,
@@ -13217,7 +13231,7 @@ wwv_flow_api.create_report_columns (
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
   p_sum_column=> 'N',
-  p_hidden_column=> 'Y',
+  p_hidden_column=> 'N',
   p_display_as=>'TEXT',
   p_column_width=> '16',
   p_is_required=> false,
@@ -21012,7 +21026,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618014825'
+ ,p_last_upd_yyyymmddhh24miss => '20140618083910'
   );
 null;
  
@@ -21026,7 +21040,7 @@ declare
 begin
 s:=s||'<br/>'||unistr('\000a')||
 '<a href="f?p=&APP_ID.:49:&SESSION.:::RP:P49_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des participants</a><br/>'||unistr('\000a')||
-'<a href="f?p=&APP_ID.:28:&SESSION.:::RP:P28_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des équipes</a>'||unistr('\000a')||
+'<a href="f?p=&APP_ID.:57:&SESSION.:::RP:P28_TOUR_ANNEE:&P42_TOUR_ANNEE.">Gestion des équipes</a>'||unistr('\000a')||
 '';
 
 wwv_flow_api.create_page_plug (
@@ -24991,6 +25005,2015 @@ end;
 /
 
  
+--application/pages/page_00056
+prompt  ...PAGE 56: Tour2
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 56
+ ,p_user_interface_id => 9661538989678584 + wwv_flow_api.g_id_offset
+ ,p_tab_set => 'TS1'
+ ,p_name => 'Tour2'
+ ,p_step_title => 'Tour2'
+ ,p_step_sub_title => 'Tour2'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_autocomplete_on_off => 'ON'
+ ,p_page_is_public_y_n => 'N'
+ ,p_cache_page_yn => 'N'
+ ,p_help_text => 
+'No help is available for this page.'
+ ,p_last_updated_by => 'G11_FLIGHT'
+ ,p_last_upd_yyyymmddhh24miss => '20140618083944'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'SELECT '||unistr('\000a')||
+'   "TOUR"."TOUR_ANNEE" "TOUR_ANNEE", '||unistr('\000a')||
+'   "TOUR"."TOUR_EDITION" "TOUR_EDITION", '||unistr('\000a')||
+'   "TOUR"."TOUR_DATED" "TOUR_DATED", '||unistr('\000a')||
+'   "TOUR"."TOUR_DATEF" "TOUR_DATEF", '||unistr('\000a')||
+'   "TOUR"."TOUR_NOM" "TOUR_NOM"'||unistr('\000a')||
+'FROM '||unistr('\000a')||
+'   "TOUR"'||unistr('\000a')||
+'';
+
+wwv_flow_api.create_report_region (
+  p_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 56,
+  p_name=> 'Tour2',
+  p_region_name=>'',
+  p_template=> 5069528942943951+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 10,
+  p_new_grid         => false,
+  p_new_grid_row     => true,
+  p_new_grid_column  => true,
+  p_display_column=> null,
+  p_display_point=> 'BODY_3',
+  p_item_display_point=> 'ABOVE',
+  p_source=> s,
+  p_source_type=> 'STRUCTURED_QUERY',
+  p_plug_caching=> 'NOT_CACHED',
+  p_query_row_template=> 5073020813943984+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_no_data_found=> 'No data found.',
+  p_query_num_rows_type=> 'ROW_RANGES_IN_SELECT_LIST',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_query_asc_image=> 'arrow_down_gray_dark.gif',
+  p_query_asc_image_attr=> 'width="13" height="12"',
+  p_query_desc_image=> 'arrow_up_gray_dark.gif',
+  p_query_desc_image_attr=> 'width="13" height="12"',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5196915752013744 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_ANNEE',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Edit',
+  p_column_link=>'f?p=#APP_ID#:57:#APP_SESSION#:::RP:P57_TOUR_ANNEE:#TOUR_ANNEE#',
+  p_column_linktext=>'<img src="#IMAGE_PREFIX#e2.gif"  border="0">',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'TOUR',
+  p_ref_column_name=> 'TOUR_ANNEE',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5197120096013744 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_EDITION',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Tour Edition',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'TOUR',
+  p_ref_column_name=> 'TOUR_EDITION',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5197301489013744 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 3,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_DATED',
+  p_column_display_sequence=> 3,
+  p_column_heading=> 'Tour Dated',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'TOUR',
+  p_ref_column_name=> 'TOUR_DATED',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5197503609013744 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 4,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_DATEF',
+  p_column_display_sequence=> 4,
+  p_column_heading=> 'Tour Datef',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'TOUR',
+  p_ref_column_name=> 'TOUR_DATEF',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5197714878013745 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 5,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_NOM',
+  p_column_display_sequence=> 5,
+  p_column_heading=> 'Tour Nom',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'TOUR',
+  p_ref_column_name=> 'TOUR_NOM',
+  p_column_comment=>'');
+end;
+/
+begin
+wwv_flow_api.create_query_definition (
+  p_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5195914847013730 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_reference_id=> null);
+end;
+/
+begin
+wwv_flow_api.create_query_object (
+  p_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_object_owner=> '#OWNER#',
+  p_object_name=> 'TOUR',
+  p_object_alias=> 'TOUR');
+end;
+/
+begin
+wwv_flow_api.create_query_column (
+  p_id=> 5196814340013743 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_query_object_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_column_number=> 1,
+  p_column_alias=> 'TOUR_ANNEE',
+  p_column_sql_expression=> 'TOUR_ANNEE',
+  p_column_group_by_sequence=> '');
+end;
+/
+begin
+wwv_flow_api.create_query_column (
+  p_id=> 5197027816013744 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_query_object_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_column_number=> 2,
+  p_column_alias=> 'TOUR_EDITION',
+  p_column_sql_expression=> 'TOUR_EDITION',
+  p_column_group_by_sequence=> '');
+end;
+/
+begin
+wwv_flow_api.create_query_column (
+  p_id=> 5197206561013744 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_query_object_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_column_number=> 3,
+  p_column_alias=> 'TOUR_DATED',
+  p_column_sql_expression=> 'TOUR_DATED',
+  p_column_group_by_sequence=> '');
+end;
+/
+begin
+wwv_flow_api.create_query_column (
+  p_id=> 5197409427013744 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_query_object_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_column_number=> 4,
+  p_column_alias=> 'TOUR_DATEF',
+  p_column_sql_expression=> 'TOUR_DATEF',
+  p_column_group_by_sequence=> '');
+end;
+/
+begin
+wwv_flow_api.create_query_column (
+  p_id=> 5197604520013744 + wwv_flow_api.g_id_offset,
+  p_query_id=> 5196610366013739 + wwv_flow_api.g_id_offset,
+  p_query_object_id=> 5196708424013741 + wwv_flow_api.g_id_offset,
+  p_column_number=> 5,
+  p_column_alias=> 'TOUR_NOM',
+  p_column_sql_expression=> 'TOUR_NOM',
+  p_column_group_by_sequence=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 5211502110013801 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 56,
+  p_plug_name=> 'Breadcrumb',
+  p_region_name=>'',
+  p_escape_on_http_output=>'N',
+  p_plug_template=> 5065601018943942+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 10,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'REGION_POSITION_01',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'M'|| to_char(9662837733678645 + wwv_flow_api.g_id_offset),
+  p_menu_template_id=> 5080322775944031+ wwv_flow_api.g_id_offset,
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+ 
+begin
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5198013923013747 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 56,
+  p_button_sequence=> 10,
+  p_button_plug_id => 5195914847013730+wwv_flow_api.g_id_offset,
+  p_button_name    => 'CREATE',
+  p_button_action  => 'REDIRECT_PAGE',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Create',
+  p_button_position=> 'REGION_TEMPLATE_CREATE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'f?p=&APP_ID.:57:&SESSION.::&DEBUG.:57',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_computation(
+  p_id=> 5198209986013749 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 56,
+  p_computation_sequence => 1,
+  p_computation_item=> 'P57_TOUR_ANNEE',
+  p_computation_point=> 'AFTER_SUBMIT',
+  p_computation_type=> 'STATIC_ASSIGNMENT',
+  p_computation_processed=> 'REPLACE_EXISTING',
+  p_computation=> '',
+  p_compute_when => 'CREATE',
+  p_compute_when_type=>'REQUEST_EQUALS_CONDITION');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 56
+--
+ 
+begin
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
+--application/pages/page_00057
+prompt  ...PAGE 57: Master Detail2
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 57
+ ,p_user_interface_id => 9661538989678584 + wwv_flow_api.g_id_offset
+ ,p_tab_set => 'TS1'
+ ,p_name => 'Master Detail2'
+ ,p_step_title => 'Master Detail2'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_autocomplete_on_off => 'ON'
+ ,p_javascript_code => 
+'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'||unistr('\000a')||
+'var htmldb_ch_message=''"OK_TO_GET_NEXT_PREV_PK_VALUE"'';'
+ ,p_page_is_public_y_n => 'N'
+ ,p_cache_page_yn => 'N'
+ ,p_help_text => 
+'No help is available for this page.'
+ ,p_last_updated_by => 'G11_FLIGHT'
+ ,p_last_upd_yyyymmddhh24miss => '20140618083944'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 5198820609013753 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 57,
+  p_plug_name=> 'Tour2',
+  p_region_name=>'',
+  p_escape_on_http_output=>'N',
+  p_plug_template=> 5069528942943951+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 0,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'BODY_3',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select '||unistr('\000a')||
+'"TOUR_ANNEE",'||unistr('\000a')||
+'"EQUIPE_NUM",'||unistr('\000a')||
+'"EQUIPE_NOM",'||unistr('\000a')||
+'"EQUIPE_WEB",'||unistr('\000a')||
+'"EQUIPE_DESC",'||unistr('\000a')||
+'"EQUIPE_TPS_GENE",'||unistr('\000a')||
+'"EQUIPE_CLASS_GENE",'||unistr('\000a')||
+'"EQUIPE_PAYS",'||unistr('\000a')||
+'"SPON_NOM",'||unistr('\000a')||
+'"SPON_ACRO",'||unistr('\000a')||
+'"PAYS_NUM"'||unistr('\000a')||
+'from "#OWNER#"."EQUIPE"'||unistr('\000a')||
+'where "TOUR_ANNEE" = :P57_TOUR_ANNEE'||unistr('\000a')||
+'';
+
+wwv_flow_api.create_report_region (
+  p_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 57,
+  p_name=> 'Equipe2',
+  p_region_name=>'',
+  p_template=> 5069528942943951+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 15,
+  p_new_grid         => false,
+  p_new_grid_row     => true,
+  p_new_grid_column  => true,
+  p_display_column=> null,
+  p_display_point=> 'BODY_3',
+  p_item_display_point=> 'ABOVE',
+  p_source=> s,
+  p_source_type=> 'UPDATABLE_SQL_QUERY',
+  p_display_when_condition=> 'P57_TOUR_ANNEE',
+  p_display_condition_type=> 'ITEM_IS_NOT_NULL',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'N',
+  p_query_row_template=> 5073020813943984+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '10',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> '(null)',
+  p_query_break_cols=> '0',
+  p_query_no_data_found=> 'No data found.',
+  p_query_num_rows_type=> 'ROW_RANGES_IN_SELECT_LIST',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_break_type_flag=> 'DEFAULT_BREAK_FORMATTING',
+  p_csv_output=> 'N',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_plug_query_strip_html=> 'Y',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5209832108013796 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'CHECK$01',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Select Row',
+  p_use_as_row_header=> 'N',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'CHECKBOX',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_derived_column=> 'Y',
+  p_include_in_export=> 'Y',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5205602039013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'TOUR_ANNEE',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Tour Annee',
+  p_use_as_row_header=> 'N',
+  p_column_html_expression=>'&P57_TOUR_ANNEE.',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'Y',
+  p_display_as=>'HIDDEN',
+  p_lov_show_nulls=> 'NO',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_pk_col_source_type=> 'T',
+  p_lov_display_extra=> 'YES',
+  p_include_in_export=> 'Y',
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'TOUR_ANNEE',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5205717859013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 3,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_NUM',
+  p_column_display_sequence=> 3,
+  p_column_heading=> 'Equipe Num',
+  p_use_as_row_header=> 'N',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'Y',
+  p_display_as=>'HIDDEN',
+  p_lov_show_nulls=> 'NO',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_pk_col_source_type=> 'T',
+  p_lov_display_extra=> 'YES',
+  p_include_in_export=> 'Y',
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_NUM',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5205802077013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 4,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_NOM',
+  p_column_display_sequence=> 4,
+  p_column_heading=> 'Nom',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_NOM',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5205913257013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 5,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_WEB',
+  p_column_display_sequence=> 5,
+  p_column_heading=> 'Site Web',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_WEB',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206011302013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 6,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_DESC',
+  p_column_display_sequence=> 6,
+  p_column_heading=> 'Description',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_DESC',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206118275013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 7,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_TPS_GENE',
+  p_column_display_sequence=> 7,
+  p_column_heading=> 'Temps Générale',
+  p_use_as_row_header=> 'N',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_lov_show_nulls=> 'NO',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_lov_display_extra=> 'YES',
+  p_include_in_export=> 'Y',
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_TPS_GENE',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206213889013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 8,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_CLASS_GENE',
+  p_column_display_sequence=> 8,
+  p_column_heading=> 'Classement Générale',
+  p_use_as_row_header=> 'N',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_lov_show_nulls=> 'NO',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_lov_display_extra=> 'YES',
+  p_include_in_export=> 'Y',
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_CLASS_GENE',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206321685013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 9,
+  p_form_element_id=> null,
+  p_column_alias=> 'EQUIPE_PAYS',
+  p_column_display_sequence=> 9,
+  p_column_heading=> 'Pays',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'Y',
+  p_display_as=>'TEXT',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'EQUIPE_PAYS',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206428640013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 10,
+  p_form_element_id=> null,
+  p_column_alias=> 'SPON_NOM',
+  p_column_display_sequence=> 10,
+  p_column_heading=> 'Sponsor',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'SPON_NOM',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206511032013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 11,
+  p_form_element_id=> null,
+  p_column_alias=> 'SPON_ACRO',
+  p_column_display_sequence=> 11,
+  p_column_heading=> 'Acronyme Sponsor',
+  p_column_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'TEXT',
+  p_column_width=> '12',
+  p_is_required=> false,
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'SPON_ACRO',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5206600375013785 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 12,
+  p_form_element_id=> null,
+  p_column_alias=> 'PAYS_NUM',
+  p_column_display_sequence=> 12,
+  p_column_heading=> 'Pays',
+  p_use_as_row_header=> 'N',
+  p_column_alignment=>'RIGHT',
+  p_heading_alignment=>'LEFT',
+  p_default_sort_column_sequence=>0,
+  p_disable_sort_column=>'N',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'SELECT_LIST_FROM_LOV',
+  p_named_lov=>9805125591260165 + wwv_flow_api.g_id_offset,
+  p_lov_show_nulls=> 'NO',
+  p_column_width=> '16',
+  p_is_required=> false,
+  p_lov_display_extra=> 'YES',
+  p_include_in_export=> 'Y',
+  p_ref_schema=> 'G11_FLIGHT',
+  p_ref_table_name=> 'EQUIPE',
+  p_ref_column_name=> 'PAYS_NUM',
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 5211820180013804 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 57,
+  p_plug_name=> 'Breadcrumb',
+  p_region_name=>'',
+  p_escape_on_http_output=>'N',
+  p_plug_template=> 5065601018943942+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 10,
+  p_plug_new_grid         => false,
+  p_plug_new_grid_row     => true,
+  p_plug_new_grid_column  => true,
+  p_plug_display_column=> null,
+  p_plug_display_point=> 'REGION_POSITION_01',
+  p_plug_item_display_point=> 'ABOVE',
+  p_plug_source=> s,
+  p_plug_source_type=> 'M'|| to_char(9662837733678645 + wwv_flow_api.g_id_offset),
+  p_menu_template_id=> 5080322775944031+ wwv_flow_api.g_id_offset,
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+ 
+begin
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5199106885013753 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 30,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'SAVE',
+  p_button_action  => 'SUBMIT',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Apply Changes',
+  p_button_position=> 'REGION_TEMPLATE_CHANGE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> '',
+  p_button_execute_validations=>'Y',
+  p_button_condition=> 'P57_TOUR_ANNEE',
+  p_button_condition_type=> 'ITEM_IS_NOT_NULL',
+  p_database_action=>'UPDATE',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5207030674013788 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 40,
+  p_button_plug_id => 5205304943013782+wwv_flow_api.g_id_offset,
+  p_button_name    => 'APPLY_CHANGES_ADD',
+  p_button_action  => 'REDIRECT_URL',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Add Row',
+  p_button_position=> 'REGION_TEMPLATE_CHANGE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'javascript:apex.widget.tabular.addRow();',
+  p_button_execute_validations=>'N',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5202414412013774 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 50,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'GET_PREVIOUS_TOUR_ANNEE',
+  p_button_action  => 'REDIRECT_URL',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> '&lt;',
+  p_button_position=> 'REGION_TEMPLATE_CHANGE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'javascript:htmldb_goSubmit(''GET_PREVIOUS_TOUR_ANNEE'')',
+  p_button_execute_validations=>'Y',
+  p_button_condition=> 'P57_TOUR_ANNEE_PREV',
+  p_button_condition_type=> 'ITEM_IS_NOT_NULL',
+  p_button_comment=>'This button is needed for Get Next or Previous Primary Key Value process.',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5202307859013774 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 60,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'GET_NEXT_TOUR_ANNEE',
+  p_button_action  => 'REDIRECT_URL',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> '&gt;',
+  p_button_position=> 'REGION_TEMPLATE_CHANGE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'javascript:htmldb_goSubmit(''GET_NEXT_TOUR_ANNEE'')',
+  p_button_execute_validations=>'Y',
+  p_button_condition=> 'P57_TOUR_ANNEE_NEXT',
+  p_button_condition_type=> 'ITEM_IS_NOT_NULL',
+  p_button_comment=>'This button is needed for Get Next or Previous Primary Key Value process.',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5199425072013753 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 10,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'CANCEL',
+  p_button_action  => 'REDIRECT_PAGE',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Cancel',
+  p_button_position=> 'REGION_TEMPLATE_CLOSE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'f?p=&APP_ID.:56:&SESSION.::&DEBUG.:::',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5199007843013753 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 40,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'CREATE',
+  p_button_action  => 'SUBMIT',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Create',
+  p_button_position=> 'REGION_TEMPLATE_CREATE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> '',
+  p_button_execute_validations=>'Y',
+  p_button_condition=> 'P57_TOUR_ANNEE',
+  p_button_condition_type=> 'ITEM_IS_NULL',
+  p_database_action=>'INSERT',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5199217149013753 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 20,
+  p_button_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_button_name    => 'DELETE',
+  p_button_action  => 'REDIRECT_URL',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Delete',
+  p_button_position=> 'REGION_TEMPLATE_DELETE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'javascript:apex.confirm(htmldb_delete_message,''DELETE'');',
+  p_button_execute_validations=>'N',
+  p_button_condition=> 'P57_TOUR_ANNEE',
+  p_button_condition_type=> 'ITEM_IS_NOT_NULL',
+  p_database_action=>'DELETE',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+wwv_flow_api.create_page_button(
+  p_id             => 5206922039013788 + wwv_flow_api.g_id_offset,
+  p_flow_id        => wwv_flow.g_flow_id,
+  p_flow_step_id   => 57,
+  p_button_sequence=> 20,
+  p_button_plug_id => 5205304943013782+wwv_flow_api.g_id_offset,
+  p_button_name    => 'APPLY_CHANGES_MRD',
+  p_button_action  => 'REDIRECT_URL',
+  p_button_image   => 'template:'||to_char(5079530616944012+wwv_flow_api.g_id_offset),
+  p_button_is_hot=>'N',
+  p_button_image_alt=> 'Delete Checked',
+  p_button_position=> 'REGION_TEMPLATE_DELETE',
+  p_button_alignment=> 'RIGHT',
+  p_button_redirect_url=> 'javascript:apex.confirm(htmldb_delete_message,''APPLY_CHANGES_MRD'');',
+  p_button_execute_validations=>'N',
+  p_button_condition=> 'select 1 '||unistr('\000a')||
+'from "#OWNER#"."EQUIPE"'||unistr('\000a')||
+'where "TOUR_ANNEE" = :P57_TOUR_ANNEE',
+  p_button_condition_type=> 'EXISTS',
+  p_required_patch => null + wwv_flow_api.g_id_offset);
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_branch(
+  p_id=>5204328486013779 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_branch_name=> '',
+  p_branch_action=> 'f?p=&APP_ID.:57:&SESSION.::&DEBUG.::P57_TOUR_ANNEE:&P57_TOUR_ANNEE_NEXT.&success_msg=#SUCCESS_MSG#',
+  p_branch_point=> 'AFTER_PROCESSING',
+  p_branch_type=> 'REDIRECT_URL',
+  p_branch_when_button_id=>5202307859013774+ wwv_flow_api.g_id_offset,
+  p_branch_sequence=> 10,
+  p_save_state_before_branch_yn=>'N',
+  p_branch_comment=> 'This button is needed for Get Next or Previous Primary Key Value process.');
+ 
+wwv_flow_api.create_page_branch(
+  p_id=>5204526280013779 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_branch_name=> '',
+  p_branch_action=> 'f?p=&APP_ID.:57:&SESSION.::&DEBUG.::P57_TOUR_ANNEE:&P57_TOUR_ANNEE_PREV.&success_msg=#SUCCESS_MSG#',
+  p_branch_point=> 'AFTER_PROCESSING',
+  p_branch_type=> 'REDIRECT_URL',
+  p_branch_when_button_id=>5202414412013774+ wwv_flow_api.g_id_offset,
+  p_branch_sequence=> 20,
+  p_save_state_before_branch_yn=>'N',
+  p_branch_comment=> 'This button is needed for Get Next or Previous Primary Key Value process.');
+ 
+wwv_flow_api.create_page_branch(
+  p_id=>5202100546013772 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_branch_name=> '',
+  p_branch_action=> 'f?p=&APP_ID.:56:&SESSION.&success_msg=#SUCCESS_MSG#',
+  p_branch_point=> 'AFTER_PROCESSING',
+  p_branch_type=> 'REDIRECT_URL',
+  p_branch_sequence=> 30,
+  p_branch_condition_type=> 'REQUEST_IN_CONDITION',
+  p_branch_condition=> 'SAVE,DELETE,CREATE',
+  p_save_state_before_branch_yn=>'N',
+  p_branch_comment=> '');
+ 
+wwv_flow_api.create_page_branch(
+  p_id=>5209929436013796 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_branch_name=> '',
+  p_branch_action=> 'f?p=&APP_ID.:57:&SESSION.&success_msg=#SUCCESS_MSG#',
+  p_branch_point=> 'AFTER_PROCESSING',
+  p_branch_type=> 'REDIRECT_URL',
+  p_branch_sequence=> 40,
+  p_save_state_before_branch_yn=>'N',
+  p_branch_comment=> '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5200006023013761 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_ANNEE',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Tour Annee',
+  p_source=>'TOUR_ANNEE',
+  p_source_type=> 'DB_COLUMN',
+  p_display_as=> 'NATIVE_HIDDEN',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> null,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_field_template=> 5079224569944010+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5200216749013766 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_EDITION',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Edition',
+  p_source=>'TOUR_EDITION',
+  p_source_type=> 'DB_COLUMN',
+  p_display_as=> 'NATIVE_NUMBER_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 3,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_read_only_when_type=>'ALWAYS',
+  p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_03 => 'right',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5200418500013767 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_DATED',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Date Début',
+  p_format_mask=>'DD/MM/YYYY',
+  p_source=>'TOUR_DATED',
+  p_source_type=> 'DB_COLUMN',
+  p_display_as=> 'NATIVE_DATE_PICKER',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 255,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_read_only_when_type=>'ALWAYS',
+  p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_04 => 'button',
+  p_attribute_05 => 'N',
+  p_attribute_07 => 'NONE',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5200619584013767 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_DATEF',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 40,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Date Fin',
+  p_format_mask=>'DD/MM/YYYY',
+  p_source=>'TOUR_DATEF',
+  p_source_type=> 'DB_COLUMN',
+  p_display_as=> 'NATIVE_DATE_PICKER',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 255,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_read_only_when_type=>'ALWAYS',
+  p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_04 => 'button',
+  p_attribute_05 => 'N',
+  p_attribute_07 => 'NONE',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5200805202013768 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_NOM',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 50,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Nom',
+  p_source=>'TOUR_NOM',
+  p_source_type=> 'DB_COLUMN',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 25,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_read_only_when_type=>'ALWAYS',
+  p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_04 => 'TEXT',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5203302695013776 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_ANNEE_NEXT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 60,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'P57_TOUR_ANNEE_NEXT',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_HIDDEN',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> null,
+  p_cHeight=> 1,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_show_quick_picks=>'N',
+  p_item_comment => 'This item is needed for Get Next or Previous Primary Key Value process.');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5203519237013777 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_ANNEE_PREV',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 70,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_prompt=>'P57_TOUR_ANNEE_PREV',
+  p_display_as=> 'NATIVE_HIDDEN',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> null,
+  p_cHeight=> null,
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'Y',
+  p_attribute_01 => 'N',
+  p_item_comment => 'This item is needed for Get Next or Previous Primary Key Value process.');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5203718830013777 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 57,
+  p_name=>'P57_TOUR_ANNEE_COUNT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 80,
+  p_item_plug_id => 5198820609013753+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> null,
+  p_cHeight=> null,
+  p_tag_attributes  => 'class="fielddata"',
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'Y',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'Y',
+  p_attribute_02 => 'VALUE',
+  p_item_comment => 'This item is needed for Get Next or Previous Primary Key Value process.');
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5207720850013792 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'EQUIPE_NOM not null',
+  p_validation_sequence=> 30,
+  p_validation => 'EQUIPE_NOM',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'EQUIPE_NOM',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5207902004013793 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'EQUIPE_WEB not null',
+  p_validation_sequence=> 40,
+  p_validation => 'EQUIPE_WEB',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'EQUIPE_WEB',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5208103032013793 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'EQUIPE_DESC not null',
+  p_validation_sequence=> 50,
+  p_validation => 'EQUIPE_DESC',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'EQUIPE_DESC',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5208316505013794 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'EQUIPE_TPS_GENE must be numeric',
+  p_validation_sequence=> 60,
+  p_validation => 'EQUIPE_TPS_GENE',
+  p_validation_type => 'ITEM_IS_NUMERIC',
+  p_error_message => '#COLUMN_HEADER# must be numeric.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'EQUIPE_TPS_GENE',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5208515826013794 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'EQUIPE_CLASS_GENE must be numeric',
+  p_validation_sequence=> 70,
+  p_validation => 'EQUIPE_CLASS_GENE',
+  p_validation_type => 'ITEM_IS_NUMERIC',
+  p_error_message => '#COLUMN_HEADER# must be numeric.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'EQUIPE_CLASS_GENE',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5208701508013794 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'SPON_NOM not null',
+  p_validation_sequence=> 90,
+  p_validation => 'SPON_NOM',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'SPON_NOM',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5208930940013794 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'SPON_ACRO not null',
+  p_validation_sequence=> 100,
+  p_validation => 'SPON_ACRO',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'SPON_ACRO',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5209116312013795 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'PAYS_NUM not null',
+  p_validation_sequence=> 110,
+  p_validation => 'PAYS_NUM',
+  p_validation_type => 'ITEM_NOT_NULL',
+  p_error_message => '#COLUMN_HEADER# must have a value.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'PAYS_NUM',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+wwv_flow_api.create_page_validation(
+  p_id => 5209305478013795 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_tabular_form_region_id => 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_validation_name => 'PAYS_NUM must be numeric',
+  p_validation_sequence=> 110,
+  p_validation => 'PAYS_NUM',
+  p_validation_type => 'ITEM_IS_NUMERIC',
+  p_error_message => '#COLUMN_HEADER# must be numeric.',
+  p_validation_condition=> ':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_validation_condition_type=> 'PLSQL_EXPRESSION',
+  p_exec_cond_for_each_row=> 'N',
+  p_only_for_changed_rows=> 'Y',
+  p_associated_column=> 'PAYS_NUM',
+  p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION',
+  p_validation_comment=> '');
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'F|#OWNER#:TOUR:P57_TOUR_ANNEE:TOUR_ANNEE';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5201626550013770 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 10,
+  p_process_point=> 'AFTER_HEADER',
+  p_process_type=> 'DML_FETCH_ROW',
+  p_process_name=> 'Fetch Row from TOUR',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'ON_ERROR_PAGE',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'#OWNER#:TOUR:TOUR_ANNEE::::P57_TOUR_ANNEE:P57_TOUR_ANNEE_NEXT:P57_TOUR_ANNEE_PREV::::P57_TOUR_ANNEE_COUNT:';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5204105067013778 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 20,
+  p_process_point=> 'AFTER_HEADER',
+  p_process_type=> 'GET_NEXT_OR_PREV_PK',
+  p_process_name=> 'Get Next or Previous Primary Key Value',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'ON_ERROR_PAGE',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'#OWNER#:TOUR:P57_TOUR_ANNEE:TOUR_ANNEE|IUD';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5201825159013772 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 10,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'DML_PROCESS_ROW',
+  p_process_name=> 'Process Row of TOUR',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_success_message=> 'Action Processed.',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'#OWNER#:EQUIPE:TOUR_ANNEE:EQUIPE_NUM';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5209418518013795 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 20,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_process_type=> 'MULTI_ROW_UPDATE',
+  p_process_name=> 'ApplyMRU',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when=>':request like (''SAVE'') or :request like ''GET_NEXT%'' or :request like ''GET_PREV%''',
+  p_process_when_type=>'PLSQL_EXPRESSION',
+  p_process_success_message=> '#MRU_COUNT# row(s) updated, #MRI_COUNT# row(s) inserted.',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'#OWNER#:EQUIPE:TOUR_ANNEE:EQUIPE_NUM';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5209615079013796 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 30,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_region_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_process_type=> 'MULTI_ROW_DELETE',
+  p_process_name=> 'ApplyMRD',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when=>'APPLY_CHANGES_MRD',
+  p_process_when_type=>'REQUEST_IN_CONDITION',
+  p_process_success_message=> '#MRD_COUNT# row(s) deleted.',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'57';
+
+wwv_flow_api.create_page_process(
+  p_id     => 5202009724013772 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 57,
+  p_process_sequence=> 40,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'CLEAR_CACHE_FOR_PAGES',
+  p_process_name=> 'reset page',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_when_button_id=>5199217149013753 + wwv_flow_api.g_id_offset,
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 57
+--
+ 
+begin
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212332399017938 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 1,
+  p_query_column_name=> 'TOUR_ANNEE',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212425543017939 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 2,
+  p_query_column_name=> 'EQUIPE_NUM',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212529386017939 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 3,
+  p_query_column_name=> 'EQUIPE_NOM',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212600277017939 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 4,
+  p_query_column_name=> 'EQUIPE_WEB',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212725809017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 5,
+  p_query_column_name=> 'EQUIPE_DESC',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212816890017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 6,
+  p_query_column_name=> 'EQUIPE_TPS_GENE',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5212932317017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 7,
+  p_query_column_name=> 'EQUIPE_CLASS_GENE',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5213014700017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 8,
+  p_query_column_name=> 'EQUIPE_PAYS',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5213130118017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 9,
+  p_query_column_name=> 'SPON_NOM',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5213204140017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 10,
+  p_query_column_name=> 'SPON_ACRO',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+wwv_flow_api.create_region_rpt_cols (
+  p_id     => 5213331719017940 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_plug_id=> 5205304943013782 + wwv_flow_api.g_id_offset,
+  p_column_sequence=> 11,
+  p_query_column_name=> 'PAYS_NUM',
+  p_display_as=> 'TEXT',
+  p_column_comment=> '');
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
 --application/pages/page_00101
 prompt  ...PAGE 101: Login
 --
@@ -25581,6 +27604,28 @@ wwv_flow_api.create_menu_option (
   p_also_current_for_pages=> '');
  
 wwv_flow_api.create_menu_option (
+  p_id=>5211324870013801 + wwv_flow_api.g_id_offset,
+  p_menu_id=>9662837733678645 + wwv_flow_api.g_id_offset,
+  p_parent_id=>null,
+  p_option_sequence=>10,
+  p_short_name=>'Tour',
+  p_long_name=>'',
+  p_link=>'f?p=&APP_ID.:56:&SESSION.',
+  p_page_id=>56,
+  p_also_current_for_pages=> '');
+ 
+wwv_flow_api.create_menu_option (
+  p_id=>5212008895013804 + wwv_flow_api.g_id_offset,
+  p_menu_id=>9662837733678645 + wwv_flow_api.g_id_offset,
+  p_parent_id=>5211324870013801 + wwv_flow_api.g_id_offset,
+  p_option_sequence=>10,
+  p_short_name=>'Master Detail',
+  p_long_name=>'',
+  p_link=>'f?p=&APP_ID.:57:&SESSION.',
+  p_page_id=>57,
+  p_also_current_for_pages=> '');
+ 
+wwv_flow_api.create_menu_option (
   p_id=>9663250597678658 + wwv_flow_api.g_id_offset,
   p_menu_id=>9662837733678645 + wwv_flow_api.g_id_offset,
   p_parent_id=>0,
@@ -25635,6 +27680,14 @@ wwv_flow_api.create_menu_option (
   p_page_id=>20,
   p_also_current_for_pages=> '');
  
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
 wwv_flow_api.create_menu_option (
   p_id=>9734124010517920 + wwv_flow_api.g_id_offset,
   p_menu_id=>9662837733678645 + wwv_flow_api.g_id_offset,
@@ -25656,14 +27709,6 @@ wwv_flow_api.create_menu_option (
   p_link=>'f?p=&APP_ID.:24:&SESSION.',
   p_page_id=>24,
   p_also_current_for_pages=> '');
- 
-null;
- 
-end;
-/
-
- 
-begin
  
 wwv_flow_api.create_menu_option (
   p_id=>9739837848604464 + wwv_flow_api.g_id_offset,
@@ -25764,6 +27809,14 @@ wwv_flow_api.create_menu_option (
   p_page_id=>4,
   p_also_current_for_pages=> '');
  
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
 wwv_flow_api.create_menu_option (
   p_id=>9670446885678781 + wwv_flow_api.g_id_offset,
   p_menu_id=>9662837733678645 + wwv_flow_api.g_id_offset,
@@ -25785,14 +27838,6 @@ wwv_flow_api.create_menu_option (
   p_link=>'f?p=&APP_ID.:6:&APP_SESSION.::&DEBUG.',
   p_page_id=>6,
   p_also_current_for_pages=> '');
- 
-null;
- 
-end;
-/
-
- 
-begin
  
 wwv_flow_api.create_menu_option (
   p_id=>9676737055678826 + wwv_flow_api.g_id_offset,
