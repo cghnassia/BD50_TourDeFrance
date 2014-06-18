@@ -12,7 +12,7 @@ prompt  APPLICATION 105 - ADMIN Tour de france
 -- Application Export:
 --   Application:     105
 --   Name:            ADMIN Tour de france
---   Date and Time:   08:40 Wednesday June 18, 2014
+--   Date and Time:   08:53 Wednesday June 18, 2014
 --   Exported By:     G11_FLIGHT
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -158,7 +158,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_104105'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140618083944',
+  p_checksum_salt_last_reset => '20140618085308',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -198,7 +198,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'G11_FLIGHT',
-  p_last_upd_yyyymmddhh24miss=> '20140618083944',
+  p_last_upd_yyyymmddhh24miss=> '20140618085308',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -413,6 +413,7 @@ wwv_flow_api.create_tab (
   p_tab_step => 31,
   p_tab_also_current_for_pages => '32',
   p_tab_parent_tabset=>'',
+  p_display_condition_type=> 'NEVER',
   p_tab_comment  => '');
  
 --application/shared_components/navigation/tabs/standard/t_gestion_tours
@@ -3748,7 +3749,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618020213'
+ ,p_last_upd_yyyymmddhh24miss => '20140618085308'
   );
 null;
  
@@ -3897,7 +3898,7 @@ wwv_flow_api.create_worksheet_column(
   p_others_may_view        =>'Y',
   p_column_type            =>'NUMBER',
   p_display_as             =>'TEXT',
-  p_display_text_as        =>'ESCAPE_SC',
+  p_display_text_as        =>'HIDDEN',
   p_heading_alignment      =>'CENTER',
   p_column_alignment       =>'RIGHT',
   p_tz_dependent           =>'N',
@@ -4010,7 +4011,7 @@ wwv_flow_api.create_worksheet_column(
   p_display_as             =>'TEXT',
   p_display_text_as        =>'ESCAPE_SC',
   p_heading_alignment      =>'CENTER',
-  p_column_alignment       =>'RIGHT',
+  p_column_alignment       =>'LEFT',
   p_format_mask            =>'DD/MM/YYYY',
   p_tz_dependent           =>'N',
   p_rpt_distinct_lov       =>'Y',
@@ -14493,7 +14494,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618020138'
+ ,p_last_upd_yyyymmddhh24miss => '20140618085120'
   );
 null;
  
@@ -15705,7 +15706,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618020138'
+ ,p_last_upd_yyyymmddhh24miss => '20140618085120'
   );
 null;
  
