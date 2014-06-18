@@ -12,7 +12,7 @@ prompt  APPLICATION 105 - ADMIN Tour de france
 -- Application Export:
 --   Application:     105
 --   Name:            ADMIN Tour de france
---   Date and Time:   02:14 Wednesday June 18, 2014
+--   Date and Time:   07:45 Wednesday June 18, 2014
 --   Exported By:     G11_FLIGHT
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -158,7 +158,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_104105'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140618020213',
+  p_checksum_salt_last_reset => '20140618074527',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -198,7 +198,7 @@ wwv_flow_api.create_flow(
   p_include_legacy_javascript=> 'Y',
   p_default_error_display_loc=> 'INLINE_WITH_FIELD_AND_NOTIFICATION',
   p_last_updated_by => 'G11_FLIGHT',
-  p_last_upd_yyyymmddhh24miss=> '20140618020213',
+  p_last_upd_yyyymmddhh24miss=> '20140618074527',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -12861,7 +12861,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'G11_FLIGHT'
- ,p_last_upd_yyyymmddhh24miss => '20140618014953'
+ ,p_last_upd_yyyymmddhh24miss => '20140618074527'
   );
 null;
  
@@ -13002,14 +13002,14 @@ wwv_flow_api.create_report_columns (
   p_column_display_sequence=> 3,
   p_column_heading=> 'Tour Annee',
   p_use_as_row_header=> 'N',
-  p_column_html_expression=>'&P49_TOUR_ANNEE.',
+  p_column_html_expression=>'&P28_TOUR_ANNEE.',
   p_column_alignment=>'RIGHT',
   p_heading_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
   p_sum_column=> 'N',
-  p_hidden_column=> 'N',
-  p_display_as=>'ESCAPE_SC',
+  p_hidden_column=> 'Y',
+  p_display_as=>'HIDDEN',
   p_lov_show_nulls=> 'NO',
   p_column_width=> '16',
   p_is_required=> false,
@@ -13067,7 +13067,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'EQUIPE_NOM',
   p_column_display_sequence=> 4,
-  p_column_heading=> 'Equipe Nom',
+  p_column_heading=> 'Nom',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
@@ -13094,7 +13094,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'EQUIPE_WEB',
   p_column_display_sequence=> 5,
-  p_column_heading=> 'Equipe Web',
+  p_column_heading=> 'Site Web',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
@@ -13121,7 +13121,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'EQUIPE_DESC',
   p_column_display_sequence=> 6,
-  p_column_heading=> 'Equipe Desc',
+  p_column_heading=> 'Description',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
@@ -13148,7 +13148,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'EQUIPE_TPS_GENE',
   p_column_display_sequence=> 7,
-  p_column_heading=> 'Equipe Tps Gene',
+  p_column_heading=> 'Temps Générale',
   p_use_as_row_header=> 'N',
   p_column_alignment=>'RIGHT',
   p_heading_alignment=>'LEFT',
@@ -13180,7 +13180,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'EQUIPE_CLASS_GENE',
   p_column_display_sequence=> 8,
-  p_column_heading=> 'Equipe Class Gene',
+  p_column_heading=> 'Classement Générale',
   p_use_as_row_header=> 'N',
   p_column_alignment=>'RIGHT',
   p_heading_alignment=>'LEFT',
@@ -13239,7 +13239,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'SPON_NOM',
   p_column_display_sequence=> 10,
-  p_column_heading=> 'Spon Nom',
+  p_column_heading=> 'Sponsor',
   p_column_alignment=>'LEFT',
   p_default_sort_column_sequence=>0,
   p_disable_sort_column=>'N',
@@ -13266,7 +13266,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'SPON_ACRO',
   p_column_display_sequence=> 11,
-  p_column_heading=> 'Spon Acro',
+  p_column_heading=> 'Acronyme Sponsor',
   p_use_as_row_header=> 'N',
   p_column_alignment=>'LEFT',
   p_heading_alignment=>'LEFT',
@@ -13300,7 +13300,7 @@ wwv_flow_api.create_report_columns (
   p_form_element_id=> null,
   p_column_alias=> 'PAYS_NUM',
   p_column_display_sequence=> 12,
-  p_column_heading=> 'Pays Num',
+  p_column_heading=> 'Pays ',
   p_use_as_row_header=> 'N',
   p_column_alignment=>'RIGHT',
   p_heading_alignment=>'LEFT',
@@ -13628,7 +13628,7 @@ wwv_flow_api.create_page_item(
   p_item_plug_id => 5086109165139326+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'NO',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'Tour Edition',
+  p_prompt=>'Edition',
   p_source=>'TOUR_EDITION',
   p_source_type=> 'DB_COLUMN',
   p_display_as=> 'NATIVE_TEXT_FIELD',
@@ -13643,7 +13643,7 @@ wwv_flow_api.create_page_item(
   p_colspan=> null,
   p_rowspan=> null,
   p_grid_column=> null,
-  p_label_alignment=> 'RIGHT',
+  p_label_alignment=> 'LEFT',
   p_field_alignment=> 'LEFT',
   p_read_only_when_type=>'ALWAYS',
   p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
@@ -13692,7 +13692,7 @@ wwv_flow_api.create_page_item(
   p_colspan=> null,
   p_rowspan=> null,
   p_grid_column=> null,
-  p_label_alignment=> 'RIGHT',
+  p_label_alignment=> 'LEFT',
   p_field_alignment=> 'LEFT',
   p_read_only_when_type=>'ALWAYS',
   p_field_template=> 5079407118944010+wwv_flow_api.g_id_offset,
