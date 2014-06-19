@@ -1,1 +1,2 @@
+connect SYSTEM/manager
 DROP USER G11_FLIGHT CASCADE;

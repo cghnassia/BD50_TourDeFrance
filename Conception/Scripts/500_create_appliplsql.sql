@@ -1,13 +1,14 @@
 connect G11_FLIGHT/G11_FLIGHT
 set define off
-Start 510_create_pqi_ui_parap_commun.sql
-Start 510_create_pqi_db_parap_commun.sql
+Start 510_create_pqi_ui_param_commun.sql
+Start 510_create_pqi_db_param_commun.sql
 Start 520_create_pqi_ui_commun.sql
 Start 520_create_pqb_ui_commun.sql
 Start 530_create_pqi_db_commun.sql
 Start 530_create_pqb_db_commun.sql
 Start 540_create_pqi_ui_utils.sql
 Start 540_create_pqb_ui_utils.sql
+Start 550_create_dad.sql
 Start 600_create_pqi_ui_course.sql
 Start 600_create_pqb_ui_course.sql
 Start 610_create_pqi_ui_inscription.sql
