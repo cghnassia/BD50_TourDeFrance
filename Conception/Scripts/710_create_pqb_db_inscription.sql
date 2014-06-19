@@ -73,6 +73,40 @@
     exception when others then
   return null;
   END getEquipeCrit;
+  
+     FUNCTION getDirSportif(n_equipe varchar2) return db_param_commun.ref_cur IS
+  cur_dir db_param_commun.ref_cur;
+  BEGIN
+  OPEN cur_dir for
+    SELECT
+			ds.dirs_nom,ds.dirs_prenom
+		FROM
+			directeur_sportif ds inner join diriger di
+        on ds.dirs_num=di.dirs_num
+		WHERE
+			di.tour_annee=ui_utils.getSelectedTour
+    AND di.equipe_num = n_equipe
+		ORDER BY ds.dirs_nom;
+  return cur_dir;
+  exception when others then
+  return null;
+  END getDirSportif;
+  
+  FUNCTION getNbDirSportif(n_equipe varchar2) return number IS
+  n_dirs number(1);
+  BEGIN
+    SELECT
+			count(ds.dirs_num) into n_dirs
+		FROM
+			directeur_sportif ds inner join diriger di
+        on ds.dirs_num=di.dirs_num
+		WHERE
+			di.tour_annee=ui_utils.getSelectedTour
+    AND di.equipe_num = n_equipe;
+  return n_dirs;
+  exception when others then
+  return 0;
+  END getNbDirSportif;
 
 END DB_INSCRIPTION;
 

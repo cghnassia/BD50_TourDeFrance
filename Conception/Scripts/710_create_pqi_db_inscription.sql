@@ -14,6 +14,9 @@
   
   FUNCTION getEquipeCrit(crit_nom varchar2 default '%') return db_param_commun.ref_cur;
   
+   FUNCTION getDirSportif(n_equipe varchar2) return db_param_commun.ref_cur;
+  
+  FUNCTION getNbDirSportif(n_equipe varchar2) return number;
 
 END DB_INSCRIPTION;
 

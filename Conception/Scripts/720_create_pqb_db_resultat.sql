@@ -316,6 +316,40 @@ EXCEPTION
   WHEN no_data_found THEN dbms_output.put_line('Erreur');
 END update_classements;
 
+
+   FUNCTION getCurVicEtape(n_part participant.part_num%TYPE)
+   return number IS
+   n_vic number(3);
+   BEGIN
+    select 
+      count(part_num) into n_vic
+    from
+      terminer_etape
+    where
+      part_num=n_part
+    and tour_annee=ui_utils.getSelectedTour
+    and etape_class = 1;
+    return n_vic;
+    EXCEPTION WHEN OTHERS THEN
+    return 0;
+   END getCurVicEtape;
+   
+      FUNCTION getVicEtape(n_part participant.part_num%TYPE)
+   return number IS
+   n_vic number(3);
+   BEGIN
+    select 
+      count(part_num) into n_vic
+    from
+      terminer_etape
+    where
+      part_num=n_part
+    and etape_class = 1;
+    return n_vic;
+    EXCEPTION WHEN OTHERS THEN
+    return 0;
+   END getVicEtape;
+
   
 END DB_RESULTAT;
 
