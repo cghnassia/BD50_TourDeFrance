@@ -167,6 +167,7 @@ END UI_LEQUIPE;
 
 PROCEDURE UI_DETAIL_PARTICIPANT (n_part number default 1) IS
 	v_part participant%ROWTYPE := db_inscription.getPart(n_part);
+	v_array_class db_param_commun.array_class_t;
 BEGIN
   UI_COMMUN.UI_HEAD;
 	UI_COMMUN.UI_HEADER;
@@ -194,12 +195,74 @@ BEGIN
 				htp.tableRowOpen;
 				htp.tableRowClose;
 		htp.tableClose;
+
+		--Affichage des résultats pour chaque étape
+		htp.print('<br />< br />');
+		htp.tableOpen(cattributes => 'class="normalTab"');
+    	htp.tableRowOpen;
+
+    	htp.tableData('Etape');
+    	FOR i in 1 .. db_course.getEtapeCount(ui_utils.getselectedtour) LOOP
+    		htp.tableData(i);
+    	END LOOP;
+
+    	htp.tableRowClose;
+		htp.tableRowOpen;
+
+
+	    v_array_class := db_resultat.getParticipantEtapeRanking(ui_utils.getselectedtour, v_part.part_num);
+		htp.tableData('Class');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
+		v_array_class := db_resultat.getParticipantGeneRanking(ui_utils.getselectedtour, v_part.part_num);
+		htp.tableData('Jaune');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
+		v_array_class := db_resultat.getParticipantMontRanking(ui_utils.getselectedtour, v_part.part_num);
+		htp.tableData('Mont');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
+		v_array_class := db_resultat.getParticipantSprintRanking(ui_utils.getselectedtour, v_part.part_num);
+		htp.tableData('Sprint');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
+		v_array_class := db_resultat.getParticipantJeuneRanking(ui_utils.getselectedtour, v_part.part_num);
+		htp.tableData('Jeune');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableClose;
+
     UI_COMMUN.UI_MAIN_CLOSE;
   UI_COMMUN.UI_FOOTER;
+EXCEPTION
+  WHEN OTHERS THEN htp.print(sqlerrm);
 END UI_DETAIL_PARTICIPANT; 
 
 PROCEDURE UI_DETAIL_EQUIPE (n_equipe number default 1) IS
 v_equipe equipe%ROWTYPE := db_inscription.getEquipe(n_equipe);
+v_array_class db_param_commun.array_class_t;
 BEGIN
 	
 	UI_COMMUN.UI_HEAD;
@@ -225,6 +288,40 @@ BEGIN
 				htp.tableRowClose;
 				htp.tableRowOpen;
 				htp.tableRowClose;
+		htp.tableClose;
+
+		--Affichage des résultats pour chaque étape
+		htp.print('<br />');
+		htp.tableOpen(cattributes => 'class="normalTab"');
+    	htp.tableRowOpen;
+
+    	htp.tableData('Etape');
+    	FOR i in 1 .. db_course.getEtapeCount(ui_utils.getselectedtour) LOOP
+    		htp.tableData(i);
+    	END LOOP;
+
+    	htp.tableRowClose;
+		htp.tableRowOpen;
+
+
+	    v_array_class := db_resultat.getEquipeEtapeRanking(ui_utils.getselectedtour, v_equipe.equipe_num);
+		htp.tableData('Class');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
+		v_array_class := db_resultat.getEquipeGeneRanking(ui_utils.getselectedtour, v_equipe.equipe_num);
+		htp.tableData('Géné');
+		FOR i in 1 .. v_array_class.count LOOP
+			htp.tableData(v_array_class(i));
+		END LOOP;
+
+		htp.tableRowClose;
+		htp.tableRowOpen;
+
 		htp.tableClose;
     UI_COMMUN.UI_MAIN_CLOSE;
   UI_COMMUN.UI_FOOTER;

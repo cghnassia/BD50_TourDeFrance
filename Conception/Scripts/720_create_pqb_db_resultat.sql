@@ -5,9 +5,8 @@
 --  DDL for Package Body DB_RESULTAT
 --------------------------------------------------------
 
-  CREATE OR REPLACE PACKAGE BODY "G11_FLIGHT"."DB_RESULTAT" 
+CREATE OR REPLACE PACKAGE BODY "G11_FLIGHT"."DB_RESULTAT" 
 IS
-
 
 FUNCTION getLeaderEtape(
     n_etape terminer_etape.etape_num%type)
@@ -68,11 +67,11 @@ END getPorteur;
    BEGIN 
     OPEN cur_equipe for 
       SELECT 
-        	* 
+          * 
       FROM 
-      	terminer_etape_equipe 
+        terminer_etape_equipe 
       WHERE 
-        	tour_annee=ui_utils.getselectedtour 
+          tour_annee=ui_utils.getselectedtour 
       AND gene_equi_class < nb_ligne 
       AND etape_num=n_etape 
       AND gene_equi_class!=0  
@@ -104,15 +103,15 @@ END getPorteur;
    BEGIN 
     OPEN cur_part for 
      SELECT 
-			* 
-		FROM 
-			terminer_etape 
-		WHERE 
-			tour_annee=ui_utils.getselectedtour 
-		AND etape_class <= nb_ligne 
-		AND etape_num=n_etape 
-		AND etape_class != 0 
-		ORDER BY etape_class;
+      * 
+    FROM 
+      terminer_etape 
+    WHERE 
+      tour_annee=ui_utils.getselectedtour 
+    AND etape_class <= nb_ligne 
+    AND etape_num=n_etape 
+    AND etape_class != 0 
+    ORDER BY etape_class;
     return cur_part;
         EXCEPTION WHEN OTHERS THEN
     null;
@@ -124,15 +123,15 @@ END getPorteur;
    BEGIN 
     OPEN cur_part for 
      SELECT 
-			* 
-		FROM 
-			terminer_etape 
-		WHERE 
-			tour_annee=ui_utils.getselectedtour 
-		AND gene_class <= nb_ligne 
-		AND etape_num=n_etape 
-		AND gene_class != 0 
-		ORDER BY gene_class;
+      * 
+    FROM 
+      terminer_etape 
+    WHERE 
+      tour_annee=ui_utils.getselectedtour 
+    AND gene_class <= nb_ligne 
+    AND etape_num=n_etape 
+    AND gene_class != 0 
+    ORDER BY gene_class;
     return cur_part;
   END getGeneRanking;
   
@@ -142,15 +141,15 @@ END getPorteur;
    BEGIN 
     OPEN cur_part for 
      SELECT 
-			*
-		FROM (
-			SELECT * FROM terminer_etape
-			WHERE tour_annee=ui_utils.getselectedtour 
-			AND (ui_utils.getselectedtour -TO_CHAR(cycliste_daten,'YYYY')) < 26
-			AND etape_num=n_etape
-			ORDER BY gene_class asc
-		)
-		WHERE rownum <= nb_ligne;
+      *
+    FROM (
+      SELECT * FROM terminer_etape
+      WHERE tour_annee=ui_utils.getselectedtour 
+      AND (ui_utils.getselectedtour -TO_CHAR(cycliste_daten,'YYYY')) < 26
+      AND etape_num=n_etape
+      ORDER BY gene_class asc
+    )
+    WHERE rownum <= nb_ligne;
     return cur_part;
         EXCEPTION WHEN OTHERS THEN
     null;
@@ -162,15 +161,15 @@ END getPorteur;
    BEGIN 
     OPEN cur_part for 
      SELECT 
-			* 
-		 FROM 
-			terminer_etape 
-		 WHERE 
-			tour_annee=ui_utils.getselectedtour 
-		 AND gene_class_mont <= nb_ligne 
-		 AND etape_num=n_etape 
-		 AND gene_class_mont!=0 
-		 ORDER BY gene_class_mont;
+      * 
+     FROM 
+      terminer_etape 
+     WHERE 
+      tour_annee=ui_utils.getselectedtour 
+     AND gene_class_mont <= nb_ligne 
+     AND etape_num=n_etape 
+     AND gene_class_mont!=0 
+     ORDER BY gene_class_mont;
     return cur_part;
         EXCEPTION WHEN OTHERS THEN
     null;
@@ -182,15 +181,15 @@ END getPorteur;
    BEGIN 
     OPEN cur_part for 
      SELECT 
-			* 
-		FROM 
-			terminer_etape 
-		WHERE 
-			tour_annee=ui_utils.getselectedtour 
-		AND gene_class_sprint <= nb_ligne 
-		AND gene_class_sprint!=0 
-		AND etape_num=n_etape 
-		ORDER BY gene_class_sprint;
+      * 
+    FROM 
+      terminer_etape 
+    WHERE 
+      tour_annee=ui_utils.getselectedtour 
+    AND gene_class_sprint <= nb_ligne 
+    AND gene_class_sprint!=0 
+    AND etape_num=n_etape 
+    ORDER BY gene_class_sprint;
     return cur_part;
         EXCEPTION WHEN OTHERS THEN
     null;
@@ -316,7 +315,231 @@ EXCEPTION
   WHEN no_data_found THEN dbms_output.put_line('Erreur');
 END update_classements;
 
-  
-END DB_RESULTAT;
 
+FUNCTION getParticipantEtapeRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_etape_class VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT etape_class || '' INTO v_etape_class FROM terminer_etape WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_etape_class := '-'; 
+    END;
+
+    IF v_etape_class = '0' OR v_etape_class IS NULL THEN
+      v_etape_class := '-';
+    END IF;
+
+    v_array_class(v_etape_num ) := v_etape_class;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getParticipantEtapeRanking;
+
+
+FUNCTION getParticipantGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_gene_class VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT gene_class || '' INTO v_gene_class FROM terminer_etape WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_gene_class := '-'; 
+    END;
+
+    IF v_gene_class = '0' OR v_gene_class IS NULL THEN
+      v_gene_class := '-';
+    END IF;
+
+    v_array_class(v_etape_num) := v_gene_class;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getParticipantGeneRanking;
+
+
+FUNCTION getParticipantMontRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_gene_class_mont VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT gene_class_mont || '' INTO v_gene_class_mont FROM terminer_etape WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_gene_class_mont := '-'; 
+    END;
+
+    IF v_gene_class_mont = '0' OR v_gene_class_mont IS NULL THEN
+      v_gene_class_mont := '-';
+    END IF;
+
+    v_array_class(v_etape_num) := v_gene_class_mont;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getParticipantMontRanking;
+
+
+FUNCTION getParticipantSprintRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_gene_class_sprint VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT gene_class_sprint || '' INTO v_gene_class_sprint FROM terminer_etape WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_gene_class_sprint := '-'; 
+    END;
+
+    IF v_gene_class_sprint = '0' OR v_gene_class_sprint IS NULL THEN
+      v_gene_class_sprint := '-';
+    END IF;
+
+    v_array_class(v_etape_num) := v_gene_class_sprint;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getParticipantSprintRanking;
+
+
+FUNCTION getParticipantJeuneRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_gene_class VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT class INTO v_gene_class FROM (
+        SELECT part_num, rownum AS class FROM (  
+          SELECT te.part_num FROM terminer_etape te INNER JOIN participant p
+          ON te.tour_annee = p.tour_annee AND te.part_num = p.part_num
+          WHERE te.tour_annee = n_tour_annee AND te.etape_num = v_etape_num
+          AND (n_tour_annee - TO_CHAR(p.cycliste_daten,'YYYY')) < 26
+          ORDER BY te.gene_class ASC
+        )
+      )
+      WHERE part_num = n_part_num;
+
+    EXCEPTION 
+      WHEN no_data_found THEN v_gene_class := '-'; 
+    END;
+
+    IF v_gene_class = '0' OR v_gene_class IS NULL THEN
+      v_gene_class := '-';
+    END IF;
+
+    v_array_class(v_etape_num) := v_gene_class;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getParticipantJeuneRanking;
+
+FUNCTION getEquipeEtapeRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_etape_class VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT etape_equi_class || '' INTO v_etape_class FROM terminer_etape_equipe WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND equipe_num = n_equipe_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_etape_class := '-'; 
+    END;
+
+    IF v_etape_class = '0' OR v_etape_class IS NULL THEN
+      v_etape_class := '-';
+    END IF;
+
+    v_array_class(v_etape_num ) := v_etape_class;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getEquipeEtapeRanking;
+
+
+FUNCTION getEquipeGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
+return db_param_commun.array_class_t IS
+  CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
+  v_gene_class VARCHAR2(3);
+  v_etape_num etape.etape_num%TYPE;
+  v_array_class db_param_commun.array_class_t;
+BEGIN
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO v_etape_num;
+    EXIT WHEN c_etape%NOTFOUND;
+
+    BEGIN
+      SELECT gene_equi_class || '' INTO v_gene_class FROM terminer_etape_equipe WHERE  tour_annee = n_tour_annee AND etape_num = v_etape_num AND equipe_num = n_equipe_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_gene_class := '-'; 
+    END;
+
+    IF v_gene_class = '0' OR v_gene_class IS NULL THEN
+      v_gene_class := '-';
+    END IF;
+
+    v_array_class(v_etape_num) := v_gene_class;
+
+  END LOOP;
+  CLOSE c_etape;
+
+  return v_array_class;
+END getEquipeGeneRanking;
+
+END DB_RESULTAT;
 /

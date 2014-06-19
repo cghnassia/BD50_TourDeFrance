@@ -4,6 +4,8 @@
 
   CREATE OR REPLACE PACKAGE "G11_FLIGHT"."DB_COURSE" AS 
 
+ FUNCTION getEtapeCount return(n_tour_annee tour.tour_annee%TYPE) RETURN NUMBER;
+
  FUNCTION getAllEtape return db_param_commun.ref_cur;
  
  FUNCTION getEtape(n_etape etape.etape_num%TYPE default ui_utils.getselectedetape) return etape%rowtype;

@@ -25,13 +25,13 @@
   BEGIN
    OPEN cur_pp for 
     SELECT 
-			* 
-		FROM 
-			point_passage 
-		WHERE 
-			tour_annee=ui_utils.getSelectedTour
-		AND etape_num=n_etape  
-		ORDER BY pt_pass_num;
+      * 
+    FROM 
+      point_passage 
+    WHERE 
+      tour_annee=ui_utils.getSelectedTour
+    AND etape_num=n_etape  
+    ORDER BY pt_pass_num;
   return cur_pp;
  END getAllPdP;
  
@@ -47,6 +47,13 @@
     AND tour_annee=ui_utils.getSelectedTour;
   return v_etape;
   END getEtape;
-END DB_COURSE;
+  
+FUNCTION getEtapeCount(n_tour_annee tour.tour_annee%TYPE) return NUMBER IS
+  v_num NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_num FROM etape WHERE tour_annee = n_tour_annee;
+  return v_num;
+ END getEtapeCount;
 
+END DB_COURSE;
 /

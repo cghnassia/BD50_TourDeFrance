@@ -6,6 +6,8 @@
 
   TYPE ref_cur IS REF CURSOR;
 
+  TYPE array_class_t IS table of varchar2(3) index by binary_integer;
+
 END DB_PARAM_COMMUN;
 
 /

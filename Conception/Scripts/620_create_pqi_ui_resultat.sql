@@ -29,6 +29,7 @@
   PROCEDURE UI_CLASS_MONT_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape);
   
   PROCEDURE UI_CLASS_SPRINT_COMPLET (nb_ligne number default 999,n_etape etape.etape_num%TYPE default db_commun.getLastEtape);
+
 END UI_RESULTAT;
 
 /

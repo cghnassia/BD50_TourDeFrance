@@ -1,5 +1,6 @@
 CREATE OR REPLACE PACKAGE "G11_FLIGHT"."DB_RESULTAT" 
 IS
+  TYPE array_class_t IS table of varchar2(3);
 
   FUNCTION getLeaderEtape(n_etape terminer_etape.etape_num%type)
   RETURN terminer_etape.part_num%type;
@@ -30,6 +31,27 @@ IS
 
    FUNCTION getSprintRanking(nb_ligne number default 999,n_etape etape.etape_num%TYPE default 1)
    return db_param_commun.ref_cur;
+
+   FUNCTION getParticipantEtapeRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getParticipantGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getParticipantMontRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getParticipantSprintRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getParticipantJeuneRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getEquipeEtapeRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
+   return db_param_commun.array_class_t;
+
+   FUNCTION getEquipeGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
+   return db_param_commun.array_class_t;
   
    PROCEDURE update_classements (v_tour_annee tour.tour_annee%TYPE ,v_etape_num etape.etape_num%TYPE);
    
