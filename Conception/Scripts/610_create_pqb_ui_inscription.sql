@@ -172,7 +172,7 @@ BEGIN
   UI_COMMUN.UI_HEAD;
 	UI_COMMUN.UI_HEADER;
 	UI_COMMUN.UI_MAIN_OPEN;
-<<<<<<< HEAD
+
 		htp.print(' <h2>Détail de ' ||v_part.cycliste_nom||'</h2>');
 		htp.tableOpen(cattributes => 'class="normalTab"');
 			htp.tableheader('Dossard');
@@ -264,10 +264,10 @@ END UI_DETAIL_PARTICIPANT;
 PROCEDURE UI_DETAIL_EQUIPE (n_equipe number default 1) IS
 v_equipe equipe%ROWTYPE := db_inscription.getEquipe(n_equipe);
 v_array_class db_param_commun.array_class_t;
-=======
-		htp.print(' <h2>'||v_part.cycliste_prenom||' '||v_part.cycliste_nom||'</h2>');
+
+	htp.print(' <h2>'||v_part.cycliste_prenom||' '||v_part.cycliste_nom||'</h2>');
     htp.print('<div class="w80 txtleft">'||htf.anchor ('ui_inscription.ui_detail_equipe?n_equipe=' || v_part.equipe_num,v_part.equipe_nom)||'</div>');
-		htp.print('</br><div class="row separation2"></div>');
+	htp.print('</br><div class="row separation2"></div>');
     htp.print('<div class="line">
                       <div class="inbl w10"><h5>Dossard n°'||v_part.part_num||'</h5></div>
                       <div class="inbl w20">
@@ -289,13 +289,12 @@ PROCEDURE UI_DETAIL_EQUIPE (n_equipe number default 1) IS
 v_equipe equipe%ROWTYPE := db_inscription.getEquipe(n_equipe);
 dirs db_param_commun.ref_cur;
 rec_dir directeur_sportif%rowtype;
->>>>>>> 84dac9f766ac3315fc63e065e6b56bd208d58240
 BEGIN
 
 	UI_COMMUN.UI_HEAD;
 	UI_COMMUN.UI_HEADER;
 	UI_COMMUN.UI_MAIN_OPEN;
-<<<<<<< HEAD
+
 		htp.print('<h2>Détail de l''équipe ' ||v_equipe.equipe_nom||'</h2>');
 		htp.tableOpen(cattributes => 'class="normalTab"');
 			htp.tableheader('Numéro');
@@ -351,7 +350,7 @@ BEGIN
 		htp.tableRowOpen;
 
 		htp.tableClose;
-=======
+
 		htp.print('<h2>'||v_equipe.equipe_nom||' / '||v_equipe.equipe_pays||'</h2>');
     htp.print('</br><div class="row separation2"></div></br>');
      htp.print('<div class="line">
@@ -367,7 +366,7 @@ BEGIN
                       <div class="inbl w33"><b>Description</b></br>'||v_equipe.equipe_desc||'</b></div>
                 </div>
                 ');
->>>>>>> 84dac9f766ac3315fc63e065e6b56bd208d58240
+
     UI_COMMUN.UI_MAIN_CLOSE;
   UI_COMMUN.UI_FOOTER;
 END UI_DETAIL_EQUIPE;
