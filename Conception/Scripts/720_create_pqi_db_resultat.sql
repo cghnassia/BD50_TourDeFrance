@@ -55,6 +55,12 @@ IS
   
    PROCEDURE update_classements (v_tour_annee tour.tour_annee%TYPE ,v_etape_num etape.etape_num%TYPE);
    
+      FUNCTION getCurVicEtape(n_part participant.part_num%TYPE)
+   return number;
+   
+   FUNCTION getVicEtape(n_part participant.part_num%TYPE)
+   return number;
+   
 END DB_RESULTAT;
 
 /
