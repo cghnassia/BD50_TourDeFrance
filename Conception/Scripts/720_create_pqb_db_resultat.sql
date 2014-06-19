@@ -315,9 +315,6 @@ EXCEPTION
   WHEN no_data_found THEN dbms_output.put_line('Erreur');
 END update_classements;
 
-<<<<<<< HEAD
-=======
-
    FUNCTION getCurVicEtape(n_part participant.part_num%TYPE)
    return number IS
    n_vic number(3);
@@ -350,10 +347,6 @@ END update_classements;
     EXCEPTION WHEN OTHERS THEN
     return 0;
    END getVicEtape;
-
-  
-END DB_RESULTAT;
->>>>>>> 84dac9f766ac3315fc63e065e6b56bd208d58240
 
 FUNCTION getParticipantEtapeRanking(n_tour_annee tour.tour_annee%TYPE, n_part_num participant.part_num%TYPE)
 return db_param_commun.array_class_t IS
