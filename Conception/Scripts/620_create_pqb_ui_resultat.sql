@@ -112,7 +112,7 @@ BEGIN
         
         htp.tableData(ui_utils.formated_time(rec_part.gene_tps));
       
-        IF rec_part.etape_tps_ecart != 0 THEN
+        IF rec_part.gene_tps_ecart != 0 THEN
           htp.tableData('+ ' || ui_utils.formated_time(rec_part.gene_tps_ecart));
         ELSE
           htp.tableData('');
@@ -131,7 +131,6 @@ BEGIN
   parts db_param_commun.ref_cur;
   rec_part terminer_etape%rowtype;
   cpt number(3) := 0;
-  rang number(3) := 1;
 	tps_first participant.part_tps_gene%TYPE := 0;
 BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
@@ -145,25 +144,25 @@ BEGIN
     parts := db_resultat.getJeuneRanking(nb_ligne,n_etape);
    fetch parts into rec_part;
 	 while(parts%found) loop
-      if (rang=1) then
+	   cpt:=cpt+1;
+      if (cpt=1) then
         tps_first:=rec_part.gene_tps;
       end if;
-        cpt:=cpt+1;
         ui_utils.COLOR_ROW_P(cpt);
-				htp.tableData(rec_part.gene_class);
+				htp.tableData(cpt);
 				htp.tableData(htf.anchor ('ui_inscription.ui_detail_participant?n_part=' || rec_part.part_num,rec_part.cycliste_nom ||' '||rec_part.cycliste_prenom)||' ('||db_commun.getAcroPays(rec_part.part_num)||')');
 				htp.tableData(rec_part.part_num);
 				htp.tableData(rec_part.equipe_nom);
         
         htp.tableData(ui_utils.formated_time(rec_part.gene_tps));
       
-        IF rec_part.etape_tps_ecart != 0 THEN
-          htp.tableData('+ ' || ui_utils.formated_time(rec_part.gene_tps_ecart));
+        IF rec_part.gene_tps - tps_first != 0 THEN
+          htp.tableData('+ ' || ui_utils.formated_time(rec_part.gene_tps - tps_first));
         ELSE
-          htp.tableData('');
+          htp.tableData(rec_part.gene_tps);
         END IF;
       
-				htp.tableRowClose;
+		htp.tableRowClose;
         fetch parts into rec_part;
 			END LOOP;
 	htp.tableClose;
