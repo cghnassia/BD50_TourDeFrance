@@ -544,7 +544,7 @@ END getEquipeEtapeRanking;
 
 
 FUNCTION getEquipeGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
-return db_param_commun.array_class_t IS
+RETURN db_param_commun.array_class_t IS
   CURSOR c_etape IS SELECT etape_num FROM etape WHERE tour_annee = n_tour_annee ORDER BY etape_num ASC;
   v_gene_class VARCHAR2(3);
   v_etape_num etape.etape_num%TYPE;
@@ -572,6 +572,72 @@ BEGIN
 
   return v_array_class;
 END getEquipeGeneRanking;
+
+FUNCTION getClassPointsPassage(n_tour_annee tour.tour_annee%TYPE, n_etape_num etape.etape_num%TYPE, n_part_num participant.part_num%TYPE)
+RETURN db_param_commun.array_class_t IS
+  CURSOR c_point_passage IS SELECT pt_pass_num FROM point_passage WHERE tour_annee = n_tour_annee AND etape_num = n_etape_num ORDER BY pt_pass_num ASC;
+  v_array_class db_param_commun.array_class_t;
+  v_pt_pass_num point_passage.pt_pass_num%TYPE;
+  v_pass_class VARCHAR2(3);
+BEGIN
+  OPEN c_point_passage;
+  LOOP
+    FETCH c_point_passage INTO v_pt_pass_num;
+    EXIT WHEN c_point_passage%NOTFOUND;
+
+    BEGIN
+      SELECT pass_class || '' INTO v_pass_class FROM passer WHERE tour_annee = n_tour_annee AND etape_num = n_etape_num AND pt_pass_num = v_pt_pass_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN no_data_found THEN v_pass_class := '-'; 
+    END;
+
+    IF v_pass_class = '0' OR v_pass_class IS NULL THEN
+      v_pass_class := '-';
+    END IF;
+
+    v_array_class(v_pt_pass_num) := v_pass_class;
+
+  END LOOP;
+  CLOSE c_point_passage;
+
+  return v_array_class;
+END getClassPointsPassage;
+
+FUNCTION getTempsPointsPassage(n_tour_annee tour.tour_annee%TYPE, n_etape_num etape.etape_num%TYPE, n_part_num participant.part_num%TYPE)
+RETURN db_param_commun.array_temps_t IS
+  CURSOR c_point_passage IS SELECT pt_pass_num FROM point_passage WHERE tour_annee = n_tour_annee AND etape_num = n_etape_num ORDER BY pt_pass_num ASC;
+  v_array_temps db_param_commun.array_temps_t;
+  v_pt_pass_num point_passage.pt_pass_num%TYPE;
+  v_pass_tps NUMBER;
+  v_pass_tps_formatted VARCHAR(10);
+BEGIN
+  OPEN c_point_passage;
+  LOOP
+    FETCH c_point_passage INTO v_pt_pass_num;
+    EXIT WHEN c_point_passage%NOTFOUND;
+
+    BEGIN
+      SELECT pass_tps INTO v_pass_tps FROM passer WHERE tour_annee = n_tour_annee AND etape_num = n_etape_num AND pt_pass_num = v_pt_pass_num AND part_num = n_part_num;
+    EXCEPTION 
+      WHEN NO_DATA_FOUND THEN v_pass_tps := 0; 
+    END;
+
+    v_pass_tps := COALESCE(v_pass_tps, 0);
+
+    IF v_pass_tps = 0 THEN
+      v_pass_tps_formatted := '';
+    ELSE
+      v_pass_tps_formatted := ui_utils.formated_time(v_pass_tps);
+    END IF;
+
+
+    v_array_temps(v_pt_pass_num) := v_pass_tps_formatted;
+
+  END LOOP;
+  CLOSE c_point_passage;
+
+  return v_array_temps;
+END getTempsPointsPassage;
 
 END DB_RESULTAT;
 /

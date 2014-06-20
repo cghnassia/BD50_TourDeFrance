@@ -4,6 +4,8 @@
 
   CREATE OR REPLACE PACKAGE "G11_FLIGHT"."UI_ADMINISTRATION" AS 
 
+  v_part_selected participant.part_num%TYPE;
+
  PROCEDURE UI_GESTION;
 
  PROCEDURE UI_HEADER_ADMIN;
@@ -35,6 +37,8 @@
   
   PROCEDURE              UI_AFF_SELECT_ETAPES (
   v_etape_num etape.etape_num%TYPE default 1);
+
+  PROCEDURE  UI_AFF_RESULTATS_ETAPE(n_etape_num etape.etape_num%TYPE, n_part_num participant.part_num%TYPE);
   
 END UI_ADMINISTRATION;
 

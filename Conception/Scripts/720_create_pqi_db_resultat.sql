@@ -52,6 +52,12 @@ IS
 
    FUNCTION getEquipeGeneRanking(n_tour_annee tour.tour_annee%TYPE, n_equipe_num equipe.equipe_num%TYPE)
    return db_param_commun.array_class_t;
+
+  FUNCTION getClassPointsPassage(n_tour_annee tour.tour_annee%TYPE, n_etape_num etape.etape_num%TYPE, n_part_num participant.part_num%TYPE)
+  RETURN db_param_commun.array_class_t;
+
+  FUNCTION getTempsPointsPassage(n_tour_annee tour.tour_annee%TYPE, n_etape_num etape.etape_num%TYPE, n_part_num participant.part_num%TYPE)
+  RETURN db_param_commun.array_temps_t;
   
    PROCEDURE update_classements (v_tour_annee tour.tour_annee%TYPE ,v_etape_num etape.etape_num%TYPE);
    

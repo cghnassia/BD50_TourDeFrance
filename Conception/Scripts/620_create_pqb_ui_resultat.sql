@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  Fichier créé - mardi-juin-17-2014   
+--  Fichier crÃ©Ã© - mardi-juin-17-2014   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Package Body UI_RESULTAT
@@ -54,7 +54,7 @@ BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
-		htp.tableheader('N°',cattributes => 'class="col2"');
+		htp.tableheader('NÂ°',cattributes => 'class="col2"');
 		htp.tableheader('Equipe',cattributes => 'class="col3"');
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
@@ -95,7 +95,7 @@ BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
-		htp.tableheader('N°',cattributes => 'class="col2"');
+		htp.tableheader('NÂ°',cattributes => 'class="col2"');
 		htp.tableheader('Equipe',cattributes => 'class="col3"');
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
@@ -136,7 +136,7 @@ BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
-		htp.tableheader('N°',cattributes => 'class="col2"');
+		htp.tableheader('NÂ°',cattributes => 'class="col2"');
 		htp.tableheader('Equipe',cattributes => 'class="col3"');
 		htp.tableheader('Temps');
 		htp.tableheader('Ecart');
@@ -159,7 +159,7 @@ BEGIN
         IF rec_part.gene_tps - tps_first != 0 THEN
           htp.tableData('+ ' || ui_utils.formated_time(rec_part.gene_tps - tps_first));
         ELSE
-          htp.tableData(rec_part.gene_tps);
+          htp.tableData('');
         END IF;
       
 		htp.tableRowClose;
@@ -180,7 +180,7 @@ BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
-		htp.tableheader('N°',cattributes => 'class="col2"');
+		htp.tableheader('NÂ°',cattributes => 'class="col2"');
 		htp.tableheader('Equipe',cattributes => 'class="col4"');
 		htp.tableheader('Points');
 		
@@ -213,7 +213,7 @@ BEGIN
 	htp.tableOpen(cattributes => 'class="normalTab"');
 		htp.tableheader('Rang',cattributes => 'class="col2"');
 		htp.tableheader('Nom',cattributes => 'class="col4"');
-		htp.tableheader('N°',cattributes => 'class="col2"');
+		htp.tableheader('NÂ°',cattributes => 'class="col2"');
 		htp.tableheader('Equipe',cattributes => 'class="col4"');
 		htp.tableheader('Points');
 		
@@ -244,7 +244,7 @@ BEGIN
   UI_COMMUN.UI_HEAD;
 	UI_COMMUN.UI_HEADER;
 	UI_COMMUN.UI_MAIN_OPEN;
-		htp.print('<h3>Classement général</h3>');
+		htp.print('<h3>Classement gÃ©nÃ©ral</h3>');
 		UI_RESULTAT.UI_AFF_CLASS_GENE(5,db_commun.getLastEtape);
 		htp.print('<div class="w80 center txtright"><a href="ui_resultat.ui_class_gene_complet?n_etape='||db_commun.getLastEtape||'">Afficher classement complet</a></div>');
 		htp.print('<h3>Classement du meilleur grimpeur</h3>');
@@ -256,7 +256,7 @@ BEGIN
 		htp.print('<h3>Classement du meilleur jeune</h3>');
 		UI_RESULTAT.UI_AFF_CLASS_JEUNE(5,db_commun.getLastEtape);
 		htp.print('<div class="w80 center txtright"><a href="ui_resultat.ui_class_jeune_complet?n_etape='||db_commun.getLastEtape||'">Afficher classement complet</a></div>');
-		htp.print('<h3>Classement équipe</h3>');
+		htp.print('<h3>Classement Ã©quipe</h3>');
 		UI_RESULTAT.UI_AFF_CLASS_EQUI(5,db_commun.getLastEtape);
 		htp.print('<div class="w80 center txtright"><a href="ui_resultat.ui_class_equipe_complet?n_etape='||db_commun.getLastEtape||'">Afficher classement complet</a></div>');
     UI_COMMUN.UI_MAIN_CLOSE;
@@ -272,7 +272,7 @@ BEGIN
 	UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement équipe à l''étape '||n_etape||'</h3>');
+			htp.print('<h3>Classement Ã©quipe Ã  l''Ã©tape '||n_etape||'</h3>');
 			UI_RESULTAT.UI_AFF_CLASS_EQUI(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;
@@ -287,7 +287,7 @@ END UI_CLASS_EQUIPE_COMPLET;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
       htp.print('<div class="row">
-      <div class="col"><h3>Classement de l''étape '||n_etape||'</h3></div>
+      <div class="col"><h3>Classement de l''Ã©tape '||n_etape||'</h3></div>
       <div class="col w20">'); 
 				UI_COMMUN.UI_SELECT_ETAPE(n_etape);       
       htp.print('</div></div>');
@@ -304,7 +304,7 @@ END UI_CLASS_ETAPE_COMPLET;
 	UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement général à l''étape ' ||n_etape||'</h3>');
+			htp.print('<h3>Classement gÃ©nÃ©ral Ã  l''Ã©tape ' ||n_etape||'</h3>');
 			UI_RESULTAT.UI_AFF_CLASS_GENE(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;
@@ -318,7 +318,7 @@ END UI_CLASS_GENE_COMPLET;
 	UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement du meilleur jeune à l''étape '||n_etape||'</h3>');
+			htp.print('<h3>Classement du meilleur jeune Ã  l''Ã©tape '||n_etape||'</h3>');
 			UI_RESULTAT.UI_AFF_CLASS_JEUNE(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;
@@ -333,7 +333,7 @@ END UI_CLASS_JEUNE_COMPLET;
 	UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement du meilleur grimpeur à l''étape '||n_etape||'</h3>');
+			htp.print('<h3>Classement du meilleur grimpeur Ã  l''Ã©tape '||n_etape||'</h3>');
 			UI_RESULTAT.UI_AFF_CLASS_MONT(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;
@@ -347,7 +347,7 @@ END UI_CLASS_MONT_COMPLET;
     UI_COMMUN.UI_HEAD;
 		UI_COMMUN.UI_HEADER;
 		UI_COMMUN.UI_MAIN_OPEN;
-			htp.print('<h3>Classement du meilleur sprinteur à l''étape '||n_etape||'</h3>');
+			htp.print('<h3>Classement du meilleur sprinteur Ã  l''Ã©tape '||n_etape||'</h3>');
 			UI_RESULTAT.UI_AFF_CLASS_SPRINT(nb_ligne,n_etape);
 		UI_COMMUN.UI_MAIN_CLOSE;
 		UI_COMMUN.UI_FOOTER;

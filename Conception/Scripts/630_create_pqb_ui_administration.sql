@@ -4,8 +4,7 @@
 --------------------------------------------------------
 --  DDL for Package Body UI_ADMINISTRATION
 --------------------------------------------------------
-
-  CREATE OR REPLACE PACKAGE BODY "G11_FLIGHT"."UI_ADMINISTRATION" AS
+CREATE OR REPLACE PACKAGE BODY "G11_FLIGHT"."UI_ADMINISTRATION" AS
 
 PROCEDURE UI_GESTION IS
   BEGIN
@@ -39,25 +38,25 @@ PROCEDURE UI_GESTION IS
   END UI_GESTION;
 
    PROCEDURE UI_HEADER_ADMIN  IS
-	v_tour tour%ROWTYPE := db_commun.getTour(ui_utils.getSelectedTour);
+  v_tour tour%ROWTYPE := db_commun.getTour(ui_utils.getSelectedTour);
   BEGIN
-	UI_COMMUN.UI_MAIN_OPEN;
-	htp.print('
-		<div class="autogrid3">
-			<div><h1>Administration du Tour de France ' || ui_utils.getSelectedTour || '</h1></div>
-			<div>' || v_tour.tour_edition || 'e édition </br> ' || v_tour.tour_dated || ' - ' || v_tour.tour_datef ||' </div>
-			<div>');
+  UI_COMMUN.UI_MAIN_OPEN;
+  htp.print('
+    <div class="autogrid3">
+      <div><h1>Administration du Tour de France ' || ui_utils.getSelectedTour || '</h1></div>
+      <div>' || v_tour.tour_edition || 'e édition </br> ' || v_tour.tour_dated || ' - ' || v_tour.tour_datef ||' </div>
+      <div>');
       UI_COMMUN.UI_SELECT_TOUR(ui_utils.getSelectedTour);
       ui_authentification.cadreAuth;
-	htp.print('</div>
-		</div>
-		<div id="navigationAdmin">
-			<ul>
-				<li class="pas inbl"><a href="ui_commun.ui_home">Accueil</a></li>
-				<li class="pas inbl"><a href="ui_administration.ui_form_passer">Saisie résultats</a></li>
-			</ul>
-		</div>
-	</header>');
+  htp.print('</div>
+    </div>
+    <div id="navigationAdmin">
+      <ul>
+        <li class="pas inbl"><a href="ui_commun.ui_home">Accueil</a></li>
+        <li class="pas inbl"><a href="ui_administration.ui_form_passer">Saisie résultats</a></li>
+      </ul>
+    </div>
+  </header>');
 END UI_HEADER_ADMIN;
 
 PROCEDURE              "UI_FORM_PASSER" (
@@ -69,11 +68,11 @@ v_code NUMBER default 0,
 v_message VARCHAR2 default NULL
 ) IS
 BEGIN
-	UI_COMMUN.UI_HEAD;
-	UI_ADMINISTRATION.UI_HEADER_ADMIN;
-	UI_COMMUN.UI_MAIN_OPEN;
+  UI_COMMUN.UI_HEAD;
+  UI_ADMINISTRATION.UI_HEADER_ADMIN;
+  UI_COMMUN.UI_MAIN_OPEN;
 
-	htp.print('<h1>Ajout d'' un résultat pour le tour ' || ui_utils.getSelectedTour || '</h1>');
+  htp.print('<h1>Ajout d'' un résultat pour le tour ' || ui_utils.getSelectedTour || '</h1>');
 
   IF v_code = -1 THEN
     htp.print('Erreur : <ul>' || v_message || '</ul>');
@@ -81,29 +80,31 @@ BEGIN
     htp.print(v_message);
   END IF;
 
-	htp.formOpen(owa_util.get_owa_service_path || 'ui_administration.ui_execform_passer', 'GET', cattributes => 'id="form_passer"');
-	ui_aff_select_etapes(v_etape_num);
-	ui_aff_select_point_passages(v_etape_num, v_pt_pass_num);
-	ui_aff_select_participants(v_etape_num, v_pt_pass_num, v_part_num);
+  htp.formOpen(owa_util.get_owa_service_path || 'ui_administration.ui_execform_passer', 'GET', cattributes => 'id="form_passer"');
+  ui_aff_select_etapes(v_etape_num);
+  ui_aff_select_point_passages(v_etape_num, v_pt_pass_num);
+  ui_aff_select_participants(v_etape_num, v_pt_pass_num, v_part_num);
 
   htp.print('
-	<div>
-		<input name="button_submit" type="submit" value="Envoyer">
-	</div>
-	');
-	htp.formClose;
+  <div>
+    <input name="button_submit" type="submit" value="Envoyer">
+  </div>
+  ');
+  htp.formClose;
 
-	UI_COMMUN.UI_MAIN_CLOSE;
-	UI_COMMUN.UI_FOOTER;
+  ui_administration.ui_aff_resultats_etape(v_etape_num, ui_administration.part_num_selected);
+
+  UI_COMMUN.UI_MAIN_CLOSE;
+  UI_COMMUN.UI_FOOTER;
 EXCEPTION
-	WHEN OTHERS THEN htp.print('Erreur');
+  WHEN OTHERS THEN htp.print('Erreur');
 END UI_FORM_PASSER;
 
 
 PROCEDURE UI_EXECFORM_PASSER (
-	select_etape etape.etape_num%TYPE default 1,
-	select_passage point_passage.pt_pass_num%TYPE default 1,
-	select_participant participant.part_num%TYPE default 0,
+  select_etape etape.etape_num%TYPE default 1,
+  select_passage point_passage.pt_pass_num%TYPE default 1,
+  select_participant participant.part_num%TYPE default 0,
   text_temps VARCHAR2 DEFAULT '',
   button_submit VARCHAR2 DEFAULT NULL
 ) IS
@@ -146,8 +147,8 @@ END UI_EXECFORM_PASSER;
 
 
 PROCEDURE              "UI_AFF_SELECT_POINT_PASSAGES" (
-	v_etape_num etape.etape_num%TYPE default 1,
-	v_pt_pass_num point_passage.pt_pass_num%TYPE default 1
+  v_etape_num etape.etape_num%TYPE default 1,
+  v_pt_pass_num point_passage.pt_pass_num%TYPE default 1
 )
 IS
 CURSOR c_point_passage IS
@@ -155,33 +156,33 @@ SELECT * FROM point_passage WHERE tour_annee=ui_utils.getSelectedTour AND etape_
 r_point_passage c_point_passage%ROWTYPE;
 BEGIN
 
-	htp.print('</br><div class="line">
+  htp.print('</br><div class="line">
               <div class="inbl w20"> Point de passage</div>
               <div class="inbl"><select  name="select_passage" onchange="document.getElementById(''form_passer'').submit()" style="width:300px;"></div>
               </div>');
-	OPEN c_point_passage;
-	LOOP
-		FETCH c_point_passage INTO r_point_passage;
-		EXIT WHEN c_point_passage%NOTFOUND;
+  OPEN c_point_passage;
+  LOOP
+    FETCH c_point_passage INTO r_point_passage;
+    EXIT WHEN c_point_passage%NOTFOUND;
 
-		htp.print('"<option value="' || r_point_passage.pt_pass_num || '"');
+    htp.print('"<option value="' || r_point_passage.pt_pass_num || '"');
 
-		IF r_point_passage.pt_pass_num = v_pt_pass_num THEN
-		  htp.print(' selected="selected"');
-		END IF;
+    IF r_point_passage.pt_pass_num = v_pt_pass_num THEN
+      htp.print(' selected="selected"');
+    END IF;
 
-		htp.print('> Numéro ' || r_point_passage.pt_pass_num || ' (' || r_point_passage.pt_pass_nom ||')</option>');
+    htp.print('> Numéro ' || r_point_passage.pt_pass_num || ' (' || r_point_passage.pt_pass_nom ||')</option>');
 
-	END LOOP;
-	CLOSE c_point_passage;
-	htp.print('</select></div>');
+  END LOOP;
+  CLOSE c_point_passage;
+  htp.print('</select></div>');
 END UI_AFF_SELECT_POINT_PASSAGES;
 
 
 PROCEDURE              "UI_AFF_SELECT_PARTICIPANTS" (
-	v_etape_num etape.etape_num%TYPE default 1,
-	v_pt_pass_num point_passage.pt_pass_num%TYPE default 1,
-	v_part_num participant.part_num%TYPE default 0
+  v_etape_num etape.etape_num%TYPE default 1,
+  v_pt_pass_num point_passage.pt_pass_num%TYPE default 1,
+  v_part_num participant.part_num%TYPE default 0
 )
 IS
   c_participant SYS_REFCURSOR;
@@ -189,7 +190,7 @@ IS
   v_temps NUMBER := 0;
   v_part_num_selected participant.part_num%TYPE := 0;
 BEGIN
-	htp.print('</br><div class="line">
+  htp.print('</br><div class="line">
               <div class="inbl w20"> Participant</div>
               <div class="inbl"><select name="select_participant" onchange="document.getElementById(''form_passer'').submit()" style="width:300px;"></div>
               </div>');
@@ -223,16 +224,18 @@ BEGIN
       ORDER BY part_num ASC';
   END IF;
 
-	LOOP
-		FETCH c_participant INTO r_participant;
-		EXIT WHEN c_participant%NOTFOUND;
+  LOOP
+    FETCH c_participant INTO r_participant;
+    EXIT WHEN c_participant%NOTFOUND;
 
       htp.print('"<option value="' || r_participant.part_num || '"');
 
       IF v_part_num_selected = 0 THEN
         v_part_num_selected := r_participant.part_num;
+        ui_administration.v_part_num_selected := v_part_num_selected;
       ELSIF v_part_num = r_participant.part_num THEN
         htp.print(' selected="selected"');
+        ui_administration.v_part_num_selected := v_part_num_selected;
         v_part_num_selected := v_part_num;
       END IF;
 
@@ -240,14 +243,14 @@ BEGIN
 
      END LOOP;
     CLOSE c_participant;
-	htp.print('</select></div>');
+  htp.print('</select></div>');
 
   IF v_pt_pass_num > 1 AND v_part_num > 0 THEN
     BEGIN
       SELECT pass_tps INTO v_temps FROM passer WHERE tour_annee= ui_utils.getSelectedTour AND etape_num = v_etape_num AND pt_pass_num = (v_pt_pass_num - 1) AND part_num = v_part_num_selected;
     EXCEPTION
       WHEN OTHERS THEN
-		v_temps := 0;
+    v_temps := 0;
     END;
   END IF;
 
@@ -265,15 +268,15 @@ CURSOR c_etape IS
 SELECT * FROM etape WHERE tour_annee=ui_utils.getSelectedTour ORDER BY etape_num ASC;
 r_etape c_etape%ROWTYPE;
 BEGIN
-	htp.print('<div class="line">
+  htp.print('<div class="line">
                 <div class="inbl w20">Etape</div>
                 <div class="inbl"><select name="select_etape" onchange="document.getElementById(''form_passer'').submit()" style="width:300px;"></div>
                 </div>');
 
-	OPEN c_etape;
-	LOOP
-		FETCH c_etape INTO r_etape;
-		EXIT WHEN c_etape%NOTFOUND;
+  OPEN c_etape;
+  LOOP
+    FETCH c_etape INTO r_etape;
+    EXIT WHEN c_etape%NOTFOUND;
 
     htp.print('"<option value="' || r_etape.etape_num || '"');
 
@@ -283,10 +286,78 @@ BEGIN
 
     htp.print('> Etape ' || r_etape.etape_num || ' (' || r_etape.etape_nom ||')</option>');
 
-	END LOOP;
-	CLOSE c_etape;
-	htp.print('</select></div>');
+  END LOOP;
+  CLOSE c_etape;
+  htp.print('</select></div>');
+
 END UI_AFF_SELECT_ETAPES;
+
+PROCEDURE  UI_AFF_RESULTATS_ETAPE(
+  n_etape_num etape.etape_num%TYPE, 
+  n_part_num participant.part_num%TYPE
+) IS
+  c_participant db_param_commun.ref_cur;
+  r_participant participant%ROWTYPE;
+  v_array_class db_param_commun.array_class_t;
+  v_array_temps db_param_commun.array_temps_t;
+  v_temps_wrapped VARCHAR(50);
+  pointPassageCount NUMBER;
+BEGIN
+  htp.tableOpen(cattributes => 'class="normalTab"');
+  htp.tableCaption('Résultats par point de passage');
+
+  htp.tableRowOpen;
+  htp.tableHeader('N°');
+  htp.tableHeader('S');
+
+
+  pointPassageCount := db_course.getPointPassageCount(ui_utils.getselectedtour, n_etape_num);
+
+  FOR i in 1 .. pointPassageCount LOOP
+    htp.tableHeader(i);
+  END LOOP;
+  htp.tableRowClose;
+
+  c_participant := db_inscription.getPartAll(ui_utils.getselectedtour);
+  LOOP
+    FETCH c_participant INTO r_participant;
+    EXIT WHEN c_participant%NOTFOUND;
+
+    v_array_class := db_resultat.getClassPointsPassage(ui_utils.getselectedtour, n_etape_num, r_participant.part_num);
+    v_array_temps := db_resultat.getTempsPointsPassage(ui_utils.getselectedtour, n_etape_num, r_participant.part_num);
+
+    IF n_part_num = r_participant.part_num THEN
+      htp.tableRowOpen(cattributes => 'class="rowP"');
+    ELSE
+      htp.tableRowOpen;
+    END IF;
+
+      htp.tableData(r_participant.part_num);
+
+
+    IF r_participant.etape_num IS NOT NULL THEN
+      htp.tableData('Abn');
+    ELSIF v_array_class(pointPassageCount) != '-' THEN
+      htp.tableData('Arr');
+    ELSE
+      htp.tableData('Cou');
+    END IF;
+
+      FOR i in 1 .. pointPassageCount LOOP
+
+        v_temps_wrapped := '<div class="tiny">' || v_array_temps(i) ||  '</div>';
+
+        htp.tableData(v_array_class(i) || ' ' || v_temps_wrapped);
+      END LOOP;
+
+    htp.tableRowClose;
+
+  END LOOP;
+
+  htp.tableClose;
+
+END UI_AFF_RESULTATS_ETAPE;
+
 
 END UI_ADMINISTRATION;
 

@@ -108,6 +108,7 @@
 	    htp.print('<script language="javascript">document.location.href="ui_inscription.ui_detail_participant?n_part='||rec_part.part_num||'"</script>');
   end if;
   UI_COMMUN.UI_MAIN_CLOSE;
+  EXCEPTION WHEN OTHERS THEN htp.print('erreur ' || sqlerrm);
 
   END UI_LPARTICIPANT;
 

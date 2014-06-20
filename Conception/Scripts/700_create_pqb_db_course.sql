@@ -55,5 +55,12 @@ FUNCTION getEtapeCount(n_tour_annee tour.tour_annee%TYPE) return NUMBER IS
   return v_num;
  END getEtapeCount;
 
+FUNCTION getPointPassageCount(n_tour_annee tour.tour_annee%TYPE, n_etape_num etape.etape_num%TYPE) return NUMBER IS
+  v_num NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_num FROM point_passage WHERE tour_annee = n_tour_annee AND etape_num = n_etape_num;
+  return v_num;
+ END getPointPassageCount;
+
 END DB_COURSE;
 /
