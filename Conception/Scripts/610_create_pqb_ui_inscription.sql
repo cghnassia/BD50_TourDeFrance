@@ -195,9 +195,9 @@ BEGIN
 	htp.tableCaption('Résultats étape par étape');
 	htp.tableRowOpen;
 
-	htp.tableData('Etape');
+	htp.tableHeader('Etape');
 	FOR i in 1 .. db_course.getEtapeCount(ui_utils.getselectedtour) LOOP
-		htp.tableData(i);
+		htp.tableHeader(i);
 	END LOOP;
 
 	htp.tableRowClose;
@@ -205,7 +205,7 @@ BEGIN
 
 
     v_array_class := db_resultat.getParticipantEtapeRanking(ui_utils.getselectedtour, v_part.part_num);
-	htp.tableData('Class');
+	htp.tableData('<b>Class</b>');
 	FOR i in 1 .. v_array_class.count LOOP
 		htp.tableData(v_array_class(i));
 	END LOOP;
@@ -214,7 +214,7 @@ BEGIN
 	htp.tableRowOpen;
 
 	v_array_class := db_resultat.getParticipantGeneRanking(ui_utils.getselectedtour, v_part.part_num);
-	htp.tableData('Jaune');
+	htp.tableData('<b>Jaune</b>');
 	FOR i in 1 .. v_array_class.count LOOP
 		htp.tableData(v_array_class(i));
 	END LOOP;
@@ -223,7 +223,7 @@ BEGIN
 	htp.tableRowOpen;
 
 	v_array_class := db_resultat.getParticipantMontRanking(ui_utils.getselectedtour, v_part.part_num);
-	htp.tableData('Mont');
+	htp.tableData('<b>Mont</b>');
 	FOR i in 1 .. v_array_class.count LOOP
 		htp.tableData(v_array_class(i));
 	END LOOP;
@@ -232,7 +232,7 @@ BEGIN
 	htp.tableRowOpen;
 
 	v_array_class := db_resultat.getParticipantSprintRanking(ui_utils.getselectedtour, v_part.part_num);
-	htp.tableData('Sprint');
+	htp.tableData('<b>Sprint</b>');
 	FOR i in 1 .. v_array_class.count LOOP
 		htp.tableData(v_array_class(i));
 	END LOOP;
@@ -241,7 +241,7 @@ BEGIN
 	htp.tableRowOpen;
 
 	v_array_class := db_resultat.getParticipantJeuneRanking(ui_utils.getselectedtour, v_part.part_num);
-	htp.tableData('Jeune');
+	htp.tableData('<b>Jeune</b>');
 	FOR i in 1 .. v_array_class.count LOOP
 		htp.tableData(v_array_class(i));
 	END LOOP;
@@ -287,9 +287,9 @@ BEGIN
 		htp.tableCaption('Résultats étape par étape');
     	htp.tableRowOpen;
 
-    	htp.tableData('Etape');
+    	htp.tableHeader('Etape');
     	FOR i in 1 .. db_course.getEtapeCount(ui_utils.getselectedtour) LOOP
-    		htp.tableData(i);
+    		htp.tableHeader(i);
     	END LOOP;
 
     	htp.tableRowClose;
@@ -297,7 +297,7 @@ BEGIN
 
 
 	    v_array_class := db_resultat.getEquipeEtapeRanking(ui_utils.getselectedtour, v_equipe.equipe_num);
-		htp.tableData('Class');
+		htp.tableData('<b>Class</b>');
 		FOR i in 1 .. v_array_class.count LOOP
 			htp.tableData(v_array_class(i));
 		END LOOP;
@@ -306,7 +306,7 @@ BEGIN
 		htp.tableRowOpen;
 
 		v_array_class := db_resultat.getEquipeGeneRanking(ui_utils.getselectedtour, v_equipe.equipe_num);
-		htp.tableData('Géné');
+		htp.tableData('<b>Géné</b>');
 		FOR i in 1 .. v_array_class.count LOOP
 			htp.tableData(v_array_class(i));
 		END LOOP;

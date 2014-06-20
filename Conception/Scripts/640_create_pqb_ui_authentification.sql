@@ -27,7 +27,7 @@
     htp.print('<div class="w90 txtleft">');
       htp.print(ui_utils.getCookieValue('user')||' connecté');
       htp.print('</br>');
-      htp.anchor ('ui_administration.gestion','Administration');
+      htp.anchor ('ui_administration.ui_gestion','Administration');
       htp.print('</br>');
       htp.anchor ('ui_authentification.logOut','Déconnexion');
       
