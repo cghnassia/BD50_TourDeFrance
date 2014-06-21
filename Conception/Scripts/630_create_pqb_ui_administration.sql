@@ -232,10 +232,10 @@ BEGIN
 
       IF v_part_num_selected = 0 THEN
         v_part_num_selected := r_participant.part_num;
-        ui_administration.v_part_num_selected := v_part_num_selected;
+        ui_administration.part_num_selected := v_part_num_selected;
       ELSIF v_part_num = r_participant.part_num THEN
         htp.print(' selected="selected"');
-        ui_administration.v_part_num_selected := v_part_num_selected;
+        ui_administration.part_num_selected := v_part_num_selected;
         v_part_num_selected := v_part_num;
       END IF;
 

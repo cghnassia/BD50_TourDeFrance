@@ -4,7 +4,7 @@
 
   CREATE OR REPLACE PACKAGE "G11_FLIGHT"."UI_ADMINISTRATION" AS 
 
-  v_part_selected participant.part_num%TYPE;
+  part_num_selected participant.part_num%TYPE;
 
  PROCEDURE UI_GESTION;
 

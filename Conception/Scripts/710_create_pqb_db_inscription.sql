@@ -18,12 +18,12 @@
     RETURN v_part;
  END getPart;
 
- /*FUNCTION getPartAll(n_tour_annee tour.tour_annee%TYPE) return db_param_commun.ref_cur IS
+ FUNCTION getPartAll(n_tour_annee tour.tour_annee%TYPE) return db_param_commun.ref_cur IS
   c_participant db_param_commun.ref_cur;
 BEGIN
   OPEN c_participant FOR 'SELECT * FROM participant WHERE tour_annee = ' || n_tour_annee || ' ORDER BY part_num ASC';
   RETURN c_participant;
-END getPartAll;*/
+END getPartAll;
 
 FUNCTION getEquipe(n_equipe varchar2) return equipe%rowtype IS
   v_equipe equipe%rowtype;
